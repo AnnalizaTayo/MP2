@@ -1,0 +1,132 @@
+body {
+    margin: 8px 15px;
+}
+.container-grid {
+    display: grid;
+    grid-template-columns: 1fr 30%;
+}
+h4 {
+    padding: 7px;
+    font-family: 'Inter';
+    font-size: 30px;
+}
+.col-cart {
+    margin: 0 10px;
+}
+.cart-item {
+    border: 1px solid #836953;
+}
+img {
+    width: 10%;
+}
+.product-quantity {
+    background-color: #F8C8DC;
+    color: #836953;
+}
+.cart-checkout {
+    padding: 10px;
+    border: 1px solid #836953;
+}
+.quantity-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+}
+.quantity-controller {
+    cursor: pointer;
+}
+#country {
+    width: 90%;
+    height: 13px;
+    padding: 10px;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    display: inline-flex;
+    margin: 8px;
+    border: 1px solid #836953;
+}
+#address {
+    width: 90%;
+    height: 13px;
+    padding: 10px;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    display: inline-flex;
+    margin: 8px;
+    border: 1px solid #836953;
+}
+#appartment {
+    width: 90%;
+    height: 13px;
+    padding: 10px;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    display: inline-flex;
+    margin: 8px;
+    border: 1px solid #836953;
+}
+#number {
+    width: 35%;
+    height: 13px;
+    padding: 10px;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    display: inline-flex;
+    margin: 8px;
+    border: 1px solid #836953;
+}
+#email {
+    width: 35%;
+    height: 13px;
+    padding: 10px;
+    border-radius: 4px;
+    flex-wrap: wrap;
+    display: inline-flex;
+    margin: 8px;
+    border: 1px solid #836953;
+}
+
+.img-shipping-pickup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 30px;
+}
+#img-shipping {
+    width: 25%;
+    position: relative;
+    bottom: 12px;
+    right: 30px;
+}
+#img-pickup {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 4px;
+}
+.order-instruction {
+    color: #836953;
+}
+.taxes {
+    color: #836953;
+}
+.taxes-2 {
+    color: #836953;
+    font-weight: bold;
+    position: relative;
+    top: 86px;
+    left: 58px;
+}
+Button {
+    height: 30px;
+    width: 42%;
+    color: white;
+    background-color: #836953;
+    border-radius: 3px;
+    position: relative;
+    bottom: -120px;
+    right: -115px;
+}

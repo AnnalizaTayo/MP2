@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <link href="assets/css/cart.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <title>Cart Page</title>
+    </head>
+
+    <body>
+        <h4> My cart </h4>
+        <div class="container-grid">
+            <div class="col-cart">
+                <div class="cart-item">
+                    <table>
+                        <thead class="product-quantity">
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="products">
+                            <tr>
+                                <td>
+                                    <img src="assets/img/pedigree-beef-and-vegetables-dog-dry-food.jpg" alt="dry food">
+                                    Pedigree Adult Beef and Vegetables Dry Dog Food 1.5kg
+                                </td>
+                                <td>
+                                    <div class="quantity-selector">
+                                        <div class="quantity-controller">-</div>
+                                        <div>1</div>
+                                        <div class="quantity-controller">+</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    ₱ 120.00
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-address">
+                    <div class="shipping-address">
+                        <fieldset>
+                            <legend><h3> Delivery Address </h3></legend>
+                        <input type="text" id="country" name="country" placeholder="Country/Region">
+                        <input type="text" id="address" name="address" placeholder="Address">
+                        <input type="text" id="appartment" name="appartment" placeholder="Appartment, suite , etc. (Optional)">
+                        <input type="text" id="number" name="number" placeholder="Enter your Number">
+                        <input type="email"id="email" name="email" placeholder="Enter your email">
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-checkout">
+                <div>
+                    Total
+                    ₱ 120.00
+                </div>
+                <hr>
+                <div class="order-instruction">
+                    Order Instruction
+                    <i class="bi bi-caret-down"></i>
+                    <hr>
+                </div>
+                <div class="taxes">
+                    Taxes and shipping calculated at checkout
+                </div>
+                <div class="img-shipping-pickup">
+                    <img src="assets/img/shipping.png" id="img-shipping" alt="Shipping">
+                    <img src="assets/img/storepickup.png" id="img-pickup" alt="Store Pickup">
+                </div>
+                <div class="taxes-2">
+                    Please click the checkout button to continue.
+                </div>
+                <button id="submit">Checkout</button>
+            </div>
+        </div>
+    </body>
+</html>
