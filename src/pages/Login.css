@@ -16,6 +16,7 @@
 
 .login-form .field {
   margin-bottom: 15px;
+  position: relative;
 }
 
 .login-form .input,
@@ -72,6 +73,6 @@
 }
 
 .login-form .link {
-  color: #4CAF50;
+  color: #4caf50;
   text-decoration: none;
 }
