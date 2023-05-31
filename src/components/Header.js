@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CgProfile } from "react-icons/cg";
 import { FaSyringe , FaSearch } from "react-icons/fa";
 import { BsFillBagHeartFill , BsFillCartFill , BsFillTelephoneFill} from "react-icons/bs";
@@ -10,7 +10,18 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 
 
+
 const Nav = () => {
+    const [firstName, setFirstName] = useState('');
+    useEffect(() => {
+        // Check if user data exists in localStorage
+        const userString = localStorage.getItem('user');
+        if (userString) {
+          const user = JSON.parse(userString);
+          setFirstName(user.firstName);
+        }
+    }, []);
+    
     return (
         <nav className="nav-container">
             <div className="navbar">
@@ -39,18 +50,6 @@ const Nav = () => {
                             <span className="navilabel" style={{ display: 'none' }}><h4>find</h4></span>
                         </Link>
                     </div>
-                    <div className="navi login">
-                        <Link to="./login" className="login-icon nav-item">
-                            <CgProfile className="icon"/>    
-                            <span className="username navilabel"><h4>Log-in</h4></span>
-                        </Link>
-                    </div>
-                    <div className="navi profile">
-                        <Link to="/profile" className="profile-icon nav-item">
-                            <CgProfile className="icon"/>    
-                            <span className="username navilabel" id="username"><h4>Welcome</h4></span>
-                        </Link>
-                    </div>
                     <div className="navi consult">
                         <Link to="/consultation" className="heart-icon nav-item">
                             <FaSyringe className="icon"/>
@@ -67,6 +66,22 @@ const Nav = () => {
                         <Link to="/cart" className="cart-icon nav-item">
                             <BsFillCartFill className="icon"/>
                             <span className="cart navilabel" id="cart"><h4>Cart</h4></span>
+                        </Link>
+                    </div>
+                    <div className="navi login" style={{ display: firstName ? 'none' : 'grid' }}>
+                        <Link to="./login" className="login-icon nav-item">
+                            <CgProfile className="icon" />
+                            <span className="username navilabel">
+                            <h4>Log-in</h4>
+                            </span>
+                        </Link>
+                    </div>
+                    <div className="navi profile" style={{ display: firstName ? 'grid' : 'none' }}>
+                        <Link to="/profile" className="profile-icon nav-item">
+                            <CgProfile className="icon" />
+                            <span className="username navilabel" id="username">
+                            <h4>Hi {firstName ? firstName : 'User'}</h4>
+                            </span>
                         </Link>
                     </div>
                 </div>
@@ -178,4 +193,3 @@ const Header = () => {
 
 
 export default Header;
-

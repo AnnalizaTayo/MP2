@@ -32,7 +32,7 @@ li {
 
     .movable-nav {
         display: grid;
-        grid-template-columns: 4fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 3.5fr 1fr 1fr 1fr 1.5fr;
         width: 100%;
         margin: 0 auto;
     }
@@ -42,6 +42,7 @@ li {
         align-items: center;
         justify-content: center;
         height: 2rem;
+        text-align: center;
     }
 
     .nav-item {
@@ -49,12 +50,6 @@ li {
         align-items: center;
         justify-items: center;
         gap:0.5rem;
-    }
-
-    .nav-item a { 
-        display: flex;
-        align-items: center;
-        justify-items: center;
     }
 
     .icon {
@@ -167,10 +162,6 @@ li {
             color: #FFFFFF;
             margin: auto;
         }
-    /* profile-button */
-        .profile {
-            display: none;
-        }
 
     /* collapsible */
         .collapse {
@@ -222,6 +213,14 @@ li {
             .search-form {
                 width: 90%;
             }
+            
+            .search-form input{
+                width: 85%;
+            }
+    
+            .search-form button{
+                width: 15%;
+            }
         }
         
         @media (min-width:768px) {
@@ -247,7 +246,14 @@ li {
                 .search-form {
                     width: 100%;
                 }
+                
+                .search-form input{
+                    width: 85%;
+                }
         
+                .search-form button{
+                    width: 15%;
+                }
         
                 .navilabel {
                     display: none;

@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import './Signup.css';
 //import { google } from 'googleapis';
 
 const SignUpPage = () => {
+  useEffect(() => {
+      // Check if user data exists in localStorage
+      const userString = localStorage.getItem('user');
+      if (userString) {
+          window.location.href = '/';
+      }
+  }, []);
+
   const [formData, setFormData] = useState({
     id: '',
     firstName: '',

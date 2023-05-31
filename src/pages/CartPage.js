@@ -2,6 +2,11 @@ import React from "react";
 
 
 const CartPage = () => {
+    const userString = localStorage.getItem('user');
+    if (!userString) {
+        alert("You are not logged in. Please login to your account.")
+        window.location.href = '/login';
+    }
     return (
         <div>
             Still Working on This Page

@@ -76,3 +76,8 @@
   color: #4caf50;
   text-decoration: none;
 }
+
+.error-message {
+  color: red;
+  padding: 0 0 1.5rem 0;
+}
