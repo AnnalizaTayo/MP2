@@ -34,22 +34,35 @@ const ProductManagement = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     // Trim the input and check for null values
     const trimmedFormData = Object.fromEntries(
       Object.entries(formData).map(([key, value]) => [key, value.trim()])
     );
-
+  
     if (Object.values(trimmedFormData).some((value) => value === '')) {
       setErrorMessage('Please enter a valid input');
       return;
     }
+  
+    // Check if product name and variant already exist
+    const duplicateProduct = products.find(
+      (product) =>
+        product.productname === trimmedFormData.productname &&
+        product.variant === trimmedFormData.variant
+    );
+  
+    if (duplicateProduct) {
+      setErrorMessage('Product with the same name and variant already exists');
+      return;
+    }
+  
     fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(trimmedFormData)
     })
       .then((response) => response.json())
       .then((data) => {
@@ -71,6 +84,7 @@ const ProductManagement = () => {
         console.error('Error adding product:', error);
       });
   };
+  
 
   const handleDelete = (productId) => {
     fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products/${productId}`, {
@@ -94,8 +108,9 @@ const ProductManagement = () => {
       alert('Please input the product info in the form');
       return;
     }
+
     const updatedProduct = {
-      ...formData,
+      ...trimmedFormData, // Use trimmedFormData instead of formData
       productid: productId
     };
 
@@ -158,28 +173,25 @@ const ProductManagement = () => {
       productimage: '',
       stock: ''
     });
+    setErrorMessage('');
   };
-  
+
   return (
     <div className='product-management-container'>
       <div className="shop product-list">
           <h2>Existing Products</h2>
           <div className='products'>
             {products.map((product) => (
-              <div
-                className='product-item'
-                key={product.productid}
-                onClick={() => handleProductClick(product)}
-              >
-                <div className='product-info'>
-                  <h3>{product.productname}</h3>
-                  <p>Price: {product.price}</p>
-                  <p>Pet Type: {product.pettype}</p>
-                  <p>Stock: {product.stock}</p>
-                  <div className='product-actions'>
-                    <button onClick={(event) => handleDelete(event, product.productid)}>Delete</button>
+              <div className="product-item" key={product.productid} onClick={() => handleProductClick(product)}>
+                  <div className="product-info">
+                      <h3>{product.productname}</h3>
+                      <p>{product.productdescription}</p>
+                      <p>Price: {product.price}</p>
+                      <p>Pet Type: {product.pettype}</p>
                   </div>
-                </div>
+                  <div className="product-actions">
+                      <button onClick={() => handleDelete(product.productid)}>Delete</button>
+                  </div>
               </div>
             ))}
           </div>
@@ -310,15 +322,14 @@ const ProductManagement = () => {
           </label>
           {errorMessage && <p className='error-message'>{errorMessage}</p>}
           <div className='form-buttons'>
-          <button type='submit'>
-            {products.some((p) => p.productname === formData.productname) ? 'Update' : 'Add'}
-          </button>
-          <button type='button' onClick={handleFormReset}>
-            Reset
-          </button>
-        </div>
+            <button type='submit'>
+              {products.some((p) => p.productname === formData.productname) ? 'Update' : 'Add'}
+            </button>
+            <button type='button' onClick={handleFormReset}>
+              Reset
+            </button>
+          </div>
       </form>
-      
     </div>
   );
 };
