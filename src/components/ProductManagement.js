@@ -45,46 +45,80 @@ const ProductManagement = () => {
       return;
     }
   
-    // Check if product name and variant already exist
-    const duplicateProduct = products.find(
+    const existingProduct = products.find(
       (product) =>
         product.productname === trimmedFormData.productname &&
         product.variant === trimmedFormData.variant
     );
   
-    if (duplicateProduct) {
-      setErrorMessage('Product with the same name and variant already exists');
-      return;
-    }
+    if (existingProduct) {
+      const updatedProduct = {
+        ...existingProduct,
+        ...trimmedFormData,
+        productid: existingProduct.productid
+      };
   
-    fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(trimmedFormData)
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts([...products, data]);
-        setFormData({
-          productname: '',
-          productdescription: '',
-          productspecification: '',
-          variant: '',
-          price: '',
-          pettype: '',
-          productcategory: '',
-          subcategory: '',
-          productimage: '',
-          stock: ''
+      fetch(
+        `https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products/${existingProduct.productid}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedProduct)
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const updatedProducts = products.map((product) =>
+            product.productid === existingProduct.productid ? data : product
+          );
+          setProducts(updatedProducts);
+          setFormData({
+            productname: '',
+            productdescription: '',
+            productspecification: '',
+            variant: '',
+            price: '',
+            pettype: '',
+            productcategory: '',
+            subcategory: '',
+            productimage: '',
+            stock: ''
+          });
+        })
+        .catch((error) => {
+          console.error('Error updating product:', error);
         });
+    } else {
+      fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(trimmedFormData)
       })
-      .catch((error) => {
-        console.error('Error adding product:', error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setProducts([...products, data]);
+          setFormData({
+            productname: '',
+            productdescription: '',
+            productspecification: '',
+            variant: '',
+            price: '',
+            pettype: '',
+            productcategory: '',
+            subcategory: '',
+            productimage: '',
+            stock: ''
+          });
+        })
+        .catch((error) => {
+          console.error('Error adding product:', error);
+        });
+    }
   };
-  
 
   const handleDelete = (productId) => {
     fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products/${productId}`, {
@@ -98,7 +132,7 @@ const ProductManagement = () => {
       });
   };
 
-  const handleUpdate = (productId) => {
+  /* const handleUpdate = (productId) => {
     // Trim the input and check for null values
     const trimmedFormData = Object.fromEntries(
       Object.entries(formData).map(([key, value]) => [key, value.trim()])
@@ -143,7 +177,7 @@ const ProductManagement = () => {
       .catch((error) => {
         console.error('Error updating product:', error);
       });
-  };
+  }; */
 
   const handleProductClick = (product) => {
     setFormData({
@@ -185,9 +219,9 @@ const ProductManagement = () => {
               <div className="product-item" key={product.productid} onClick={() => handleProductClick(product)}>
                   <div className="product-info">
                       <h3>{product.productname}</h3>
-                      <p>{product.productdescription}</p>
                       <p>Price: {product.price}</p>
-                      <p>Pet Type: {product.pettype}</p>
+                      <p>For: {product.pettype}</p>
+                      <p>Stock: {product.stock}</p>
                   </div>
                   <div className="product-actions">
                       <button onClick={() => handleDelete(product.productid)}>Delete</button>
