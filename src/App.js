@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 import VetConsultationPage from './pages/VetConsultationPage';
 import WishListPage from './pages/WishListPage';
 import CartPage from './pages/CartPage';
+import ProductManagement from './components/ProductManagement';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/consultation" element={<VetConsultationPage />} />
         <Route path="/wishlist" element={<WishListPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/shop" element={<ProductManagement />} />
       </Routes>
 
       {/* Your footer component goes here */}

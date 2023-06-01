@@ -1,61 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState , useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import './Signup.css';
-//import { google } from 'googleapis';
+
 
 const SignUpPage = () => {
   useEffect(() => {
-      // Check if user data exists in localStorage
-      const userString = localStorage.getItem('user');
-      if (userString) {
-          window.location.href = '/';
-      }
+    // Check if user data exists in localStorage
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      window.location.href = '/';
+    }
   }, []);
 
   const [formData, setFormData] = useState({
-    id: '',
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    phone: '',
-    address: '',
     petName: '',
     petType: '',
-    petBreed: '',
-    petAgeInMonths: '',
+    confirmPassword: ''
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform sign-up logic or API call with the collected data
-    console.log(formData);
-    // Reset the form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      petName: '',
-      petType: ''
-    });
-  };
-
+  
+  const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Trim the input and check for null values
+    const trimmedFormData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => [key, value.trim()])
+    );
+
+    if (Object.values(trimmedFormData).some((value) => value === '')) {
+      setErrorMessage('Please enter a valid input');
+      return;
+    }
+
+    // Check if the passwords match
+    if (trimmedFormData.password !== formData.confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+
+    // Check if the email already exists
+    const apiUrl = 'https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users';
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        const existingUser = data.find(
+          (user) => user.email === trimmedFormData.email
+        );
+
+        if (existingUser) {
+          setErrorMessage('Email already exists');
+        } else {
+          // Remove the confirmPassword field
+          delete trimmedFormData.confirmPassword;
+
+          // Add the user to the users.env file
+          const newUser = {
+            ...trimmedFormData,
+            profilePicture:
+              'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/193.jpg',
+            id: (data.length + 1).toString()
+          };
+
+          fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+          })
+            .then(() => {
+              // Clear the form data
+              setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                petName: '',
+                petType: ''
+              });
+              setErrorMessage('');
+              console.log('User added successfully:', newUser);
+              alert('Thank you for signing up! Please log in to your account.');
+              window.location.href = '/login';
+            })
+            .catch((error) => {
+              console.error('Error adding user:', error);
+              setErrorMessage('Error adding user');
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('Error checking email:', error);
+        setErrorMessage('Error checking email');
+      });
   };
 
   return (
@@ -63,6 +116,7 @@ const SignUpPage = () => {
       <div className="signup-form">
         <header>Sign Up</header>
         <form onSubmit={handleSubmit}>
+          {errorMessage && <p>{errorMessage}</p>}
           <div className="field">
             <input
               type="text"

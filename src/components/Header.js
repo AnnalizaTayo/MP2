@@ -25,11 +25,11 @@ const Nav = () => {
     return (
         <nav className="nav-container">
             <div className="navbar">
-                <Link to="/home" className="navi hamburger-button" onClick={(e) => e.preventDefault()}>
+                <Link to="/" className="navi hamburger-button" onClick={(e) => e.preventDefault()}>
                     <ImMenu id="hamburgerlines"/>
                 </Link>
                 <div className="navi brand">
-                    <Link to="/home" className="brand-name nav-item">
+                    <Link to="/" className="brand-name nav-item">
                         <img className="logo" id="brandlogo" src={logo1} alt="logo" />
                         <img className="logo" id="hover-logo" src={logo2} alt="logo" />
                         <h3>PawOrder Pet Shop</h3>
