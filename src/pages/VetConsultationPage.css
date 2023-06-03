@@ -1,0 +1,145 @@
+.vet-consultation-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: #836953;
+}
+
+aside {
+  color: #ffffff;
+  background-color: #836953;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.pet-profile {
+  text-align: center;
+  margin: 0.25rem;
+}
+
+.pet-profile img {
+  width: 10rem;
+  height: 10rem;
+  margin: auto;
+  display: flex;
+  border-radius: 50%;
+}
+
+.appointmentList-container {
+  padding: 0.25rem;
+  border-radius: 5px;
+  border: 1px solid white;
+  margin: 1rem auto;
+  width: 95%;
+  height: 10rem;
+  overflow: auto;
+}
+
+.consultationListHead {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr) 1fr;
+  background-color: #f8c8dc;
+  color: #836953;
+}
+
+li.consultationList , li.consultationLogList {
+  color: #836953;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(3, 2fr) 1fr;
+  align-items: center;
+}
+
+.appointmentList li:nth-child(2) {
+  background-color: #f0eeee;
+}
+
+.appointmentList-container li.consultationList span{
+  overflow: hidden;
+}
+
+.consultationList .cancelAppointment {
+  color: #F8c8DC;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+}
+
+.consultationList .cancelAppointment:hover {
+  color: #DC3545;
+}
+
+.pet-information ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.loglist {
+  margin: 1rem 0;
+}
+
+.pet-information span {
+  flex: 1;
+}
+
+.pet-information span:last-child {
+  flex: none;
+  padding-left: 10px;
+}
+
+.pet-information button {
+  color: #F8c8DC;
+  transition: color 0.3s ease;
+  margin-left: auto;
+}
+
+
+.consultation-scheduler {
+  flex: 1;
+}
+
+.consultation-scheduler h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  margin-bottom: 10px;
+}
+
+.custom-button {
+  padding: 10px 20px;
+  background-color: #f8c8dc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #836953;
+  color: #ffffff;
+}
+
+.DayPicker-NavButton--prev,
+.DayPicker-NavButton--next {
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.DayPicker-NavButton--prev {
+  margin-right: 10px;
+}
+
+.DayPicker-NavButton--next {
+  margin-left: 10px;
+}
+
+button.rdp-button_reset.rdp-button.rdp-day.rdp-day_selected {
+  background-color: #f8c8dc !important;
+  color: #ffffff;
+}

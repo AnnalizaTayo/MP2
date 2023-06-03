@@ -84,3 +84,9 @@
     text-decoration: none;
   }
   
+  @media (max-width:768px) {
+    .signup-form {
+      max-width: 300px;
+      margin: 1.5rem auto;
+    }
+  }

@@ -1,8 +1,7 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import './Signup.css';
-
 
 const SignUpPage = () => {
   useEffect(() => {
@@ -20,14 +19,42 @@ const SignUpPage = () => {
     password: '',
     petName: '',
     petType: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
-  
+
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+  
+    // Lowercase petType and email
+    const lowercaseFields = ['petType', 'email'];
+    if (lowercaseFields.includes(name)) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value.toLowerCase(),
+      }));
+    } else {
+      // Capitalize firstName, lastName, and petName
+      const capitalizedFields = ['firstName', 'lastName', 'petName'];
+      if (capitalizedFields.includes(name)) {
+        const capitalizedValue = value
+          .toLowerCase()
+          .split(' ')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: capitalizedValue,
+        }));
+      } else {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      }
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -36,23 +63,23 @@ const SignUpPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
     // Trim the input and check for null values
     const trimmedFormData = Object.fromEntries(
       Object.entries(formData).map(([key, value]) => [key, value.trim()])
     );
-
+  
     if (Object.values(trimmedFormData).some((value) => value === '')) {
       setErrorMessage('Please enter a valid input');
       return;
     }
-
+  
     // Check if the passwords match
     if (trimmedFormData.password !== formData.confirmPassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
-
+  
     // Check if the email already exists
     const apiUrl = 'https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users';
     fetch(apiUrl)
@@ -61,55 +88,58 @@ const SignUpPage = () => {
         const existingUser = data.find(
           (user) => user.email === trimmedFormData.email
         );
-
+  
         if (existingUser) {
           setErrorMessage('Email already exists');
-        } else {
-          // Remove the confirmPassword field
-          delete trimmedFormData.confirmPassword;
-
-          // Add the user to the users.env file
-          const newUser = {
-            ...trimmedFormData,
-            profilePicture:
-              'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/193.jpg',
-            id: (data.length + 1).toString()
-          };
-
-          fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newUser)
-          })
-            .then(() => {
-              // Clear the form data
-              setFormData({
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
-                petName: '',
-                petType: ''
-              });
-              setErrorMessage('');
-              console.log('User added successfully:', newUser);
-              alert('Thank you for signing up! Please log in to your account.');
-              window.location.href = '/login';
-            })
-            .catch((error) => {
-              console.error('Error adding user:', error);
-              setErrorMessage('Error adding user');
-            });
+          return Promise.reject('Email already exists');
         }
+  
+        // Remove the confirmPassword field
+        delete trimmedFormData.confirmPassword;
+  
+        const petPictureUrl = `https://loremflickr.com/640/480/${trimmedFormData.petType}`;
+  
+        const newUser = {
+          ...trimmedFormData,
+          profilePicture:
+            'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/193.jpg',
+          petPicture: petPictureUrl,
+          id: (data.length + 1).toString(),
+        };
+  
+        return fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        });
+      })
+      .then(() => {
+        // Clear the form data
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          petName: '',
+          petType: '',
+        });
+        setErrorMessage('');
+  
+        // Wait for the form data to be cleared before redirecting
+        setTimeout(() => {
+          alert('Thank you for signing up! Please log in to your account.');
+          window.location.href = '/login';
+        }, 0);
       })
       .catch((error) => {
-        console.error('Error checking email:', error);
-        setErrorMessage('Error checking email');
+        console.error('Error:', error);
+        setErrorMessage('Error signing up');
       });
   };
+  
 
   return (
     <div>
@@ -163,15 +193,8 @@ const SignUpPage = () => {
               onChange={handleChange}
               required
             />
-            <span
-              className="eye-icon"
-              onClick={togglePasswordVisibility}
-            >
-              {passwordVisible ? (
-                <RiEyeOffLine />
-              ) : (
-                <RiEyeLine />
-              )}
+            <span className="eye-icon" onClick={togglePasswordVisibility}>
+              {passwordVisible ? <RiEyeOffLine /> : <RiEyeLine />}
             </span>
           </div>
 
@@ -185,15 +208,8 @@ const SignUpPage = () => {
               onChange={handleChange}
               required
             />
-            <span
-              className="eye-icon"
-              onClick={togglePasswordVisibility}
-            >
-              {passwordVisible ? (
-                <RiEyeOffLine />
-              ) : (
-                <RiEyeLine />
-              )}
+            <span className="eye-icon" onClick={togglePasswordVisibility}>
+              {passwordVisible ? <RiEyeOffLine /> : <RiEyeLine />}
             </span>
           </div>
 

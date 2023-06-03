@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const ProfilePage = () => {
   const [firstName, setFirstName] = useState('');
-
+  console.log(firstName);
   useEffect(() => {
     // Check if user data exists in localStorage
     const userString = localStorage.getItem('user');
@@ -14,6 +14,7 @@ const ProfilePage = () => {
       window.location.href = '/login';
     }
   }, []);
+  
 
   const handleLogout = () => {
     // Clear localStorage and redirect to the login page

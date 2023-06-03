@@ -1,0 +1,132 @@
+.footer {
+    color: #FFFFFF;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    background-color: #836953;
+}
+
+.footer-newsletter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+}
+
+.newsletter-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.newsletter-box input[type="email"] {
+    padding: 0.5rem;
+    border: none;
+    flex: 1;
+    max-width: 80%;
+}
+
+.newsletter-box button {
+    padding: 8px 16px;
+    background-color: #F8c8dc;
+    border: 1px solid;
+    color: #836953;
+    cursor: pointer;
+}
+
+.newsletter-box button:hover {
+    background-color: #836953;
+    color: #F8c8dc;
+    border: 1px solid #FFFFFF;
+
+}
+
+.footer-social {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.social-icon {
+    color: #FFFFFF;
+    font-size: 2rem;
+}
+
+.social-icon:hover {
+    color: #F8c8dc;
+}
+
+.footer-newsletter h2 {
+    margin-bottom: 10px;
+}
+
+.footer-newsletter p {
+    margin-bottom: 10px;
+}
+
+
+.footer-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.footer-brand img {
+    width: 120px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #F8c8dc;
+    color: #836953;
+}
+
+.subscription-success {
+    color: #4BB543;
+}
+
+.email-warning {
+    color: #FFCC00;
+}
+
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .subs {
+        width: 100%;
+    }
+
+    .footer-newsletter input[type="email"] {
+        width: 100%;
+    }
+
+    .footer-brand h1 {
+        padding: 2rem 0;
+        font-size: 3rem;
+    }
+
+    .footer-brand img {
+        width: 4rem;
+    }
+
+    .footer-bottom {
+        padding-bottom: 4rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .footer-newsletter input[type="email"] {
+        width: 60%;
+    }
+}
+
+  

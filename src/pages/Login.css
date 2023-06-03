@@ -1,6 +1,6 @@
 .login-form {
   max-width: 300px;
-  margin: 5rem auto;
+  margin: 8.5rem auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -79,5 +79,10 @@
 
 .error-message {
   color: red;
+  padding: 0 0 1.5rem 0;
+}
+
+.success-message {
+  color: #4caf50;
   padding: 0 0 1.5rem 0;
 }

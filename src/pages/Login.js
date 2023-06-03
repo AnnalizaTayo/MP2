@@ -3,106 +3,198 @@ import { Link } from 'react-router-dom';
 import { RiEyeLine, RiEyeOffLine } from 'react-icons/ri';
 import './Login.css';
 
-
 const Login = () => {
-    useEffect(() => {
-        // Check if user data exists in localStorage
-        const userString = localStorage.getItem('user');
-        if (userString) {
-            window.location.href = '/';
-        }
-    }, []);
+  useEffect(() => {
+    // Check if user data exists in localStorage
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      window.location.href = '/';
+    }
+  }, []);
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [resetLinkSent, setResetLinkSent] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value.toLowerCase());
+  };
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
-    const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible);
-    };
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleForgotPassword = () => {
+    setForgotPassword(true);
+    setResetLinkSent(false); // Reset the reset link status
+  };
 
+  const handleForgotPasswordSubmit = async (e) => {
+    e.preventDefault();
+
+    const trimmedEmail = email.trim();
+    if (trimmedEmail === '') {
+      setErrorMessage('Please enter a valid input');
+      setResetLinkSent(false);
+      return;
+    } else {
         try {
-            const response = await fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users');
-            const data = await response.json();
-            const user = data.find((user) => user.email === email && user.password === password);
-
-            if (user) {
-                localStorage.setItem('user', JSON.stringify(user));
-                console.log('User logged in:', user);
-                window.location.href = '/';
-            } else {
-                setErrorMessage('Invalid email or password');
-            }
-        } catch (error) {
+            // Send a password reset request to the server
+            // Handle the response accordingly
+            setErrorMessage('');
+            setSuccessMessage('Password reset link sent to your email');
+            setResetLinkSent(true);
+            setEmail(''); // Clear the email input field
+          } catch (error) {
             console.log('Error:', error);
-            setErrorMessage('Error occurred while logging in');
-        }
-    };
+          }
+    }
 
-    return (
-        <div>
-        <div className="login-form">
+
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        'https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users'
+      );
+      const data = await response.json();
+      const user = data.find(
+        (user) => user.email === email && user.password === password
+      );
+
+      if (user) {
+        setErrorMessage('');
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('User logged in:', user);
+        window.location.href = '/';
+      } else {
+        setErrorMessage('Invalid email or password');
+      }
+    } catch (error) {
+      console.log('Error:', error);
+      setErrorMessage('Error occurred while logging in');
+    }
+  };
+
+  const handleBackToLogin = () => {
+    setForgotPassword(false);
+    setResetLinkSent(false);
+    setSuccessMessage('');
+    setErrorMessage('');
+  };
+  return (
+    <div>
+      <div className="login-form">
+        {forgotPassword ? (
+          <>
+            <header>Forgot Password</header>
+            <form onSubmit={handleForgotPasswordSubmit}>
+              <div className="field">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="input"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+              </div>
+              {successMessage && (
+                <div className="success-message">{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+              )}
+
+              <div className="field button-field">
+                <button type="submit">Reset Password</button>
+              </div>
+            </form>
+          </>
+        ) : (
+          <>
             <header>Login</header>
             <form onSubmit={handleSubmit}>
-            <div className="field">
+              <div className="field">
                 <input
-                type="email"
-                placeholder="Email"
-                className="input"
-                value={email}
-                onChange={handleEmailChange}
+                  type="email"
+                  placeholder="Email"
+                  className="input"
+                  value={email}
+                  onChange={handleEmailChange}
                 />
-            </div>
+              </div>
 
-            <div className="field">
+              <div className="field">
                 <input
-                type={passwordVisible ? 'text' : 'password'}
-                placeholder="Password"
-                className="password"
-                value={password}
-                onChange={handlePasswordChange}
+                  type={passwordVisible ? 'text' : 'password'}
+                  placeholder="Password"
+                  className="password"
+                  value={password}
+                  onChange={handlePasswordChange}
                 />
                 <span className="eye-icon" onClick={togglePasswordVisibility}>
-                {passwordVisible ? <RiEyeOffLine /> : <RiEyeLine />}
+                  {passwordVisible ? <RiEyeOffLine /> : <RiEyeLine />}
                 </span>
-            </div>
+              </div>
 
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
+              {successMessage && (
+                <div className="success-message">{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div className="error-message">{errorMessage}</div>
+              )}
+              <div className="form-link">
+                {resetLinkSent ? (
+                  <span>
+                    Reset link sent!{' '}
+                    <Link to="/login" className="link back-to-login">
+                      Back to Login
+                    </Link>
+                  </span>
+                ) : (
+                  <Link className="forgot-pass" onClick={handleForgotPassword}>
+                    Forgot password?
+                  </Link>
+                )}
+              </div>
 
-            <div className="form-link">
-                <Link to="/" className="forgot-pass">
-                Forgot password?
-                </Link>
-            </div>
-
-            <div className="field button-field">
+              <div className="field button-field">
                 <button type="submit">Login</button>
-            </div>
+              </div>
             </form>
+          </>
+        )}
 
-            <div className="form-link">
-            <span>
-                Don't have an account?{' '}
-                <Link to="/signup" className="link signup-link">
-                Signup
+        <div className="form-link">
+          <span>
+            {resetLinkSent
+              ? "Back to "
+              : "Don't have an account? "}
+            {resetLinkSent ? 
+                <Link to="/login" className="link signup-link" onClick={handleBackToLogin}>
+                    Login
                 </Link>
-            </span>
-            </div>
+             : 
+             
+             <Link to="/signup" className="link signup-link">
+                Signup
+             </Link>}
+          </span>
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Login;
