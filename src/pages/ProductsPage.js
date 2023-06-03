@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const ProductsPage = () => {
+    // eslint-disable-next-line
     const userString = localStorage.getItem("user");
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
