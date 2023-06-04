@@ -61,9 +61,20 @@ const ProductsPage = () => {
         const userString = localStorage.getItem("user");
         if (userString) {
             const user = JSON.parse(userString);
-            const updatedUser = { ...user, cart: [...user.cart, productId] };
-            updateUser(updatedUser);
-            alert("Product has beed added to cart");
+            const existingProductIndex = user.cart.findIndex(item => item.id === productId);
+            if (existingProductIndex !== -1) {
+                // If the product already exists in the cart, update the quantity
+                const updatedCart = [...user.cart];
+                updatedCart[existingProductIndex].qty += 1;
+                const updatedUser = { ...user, cart: updatedCart };
+                updateUser(updatedUser);
+            } else {
+                // If the product is not in the cart, add it as a new object
+                const newProduct = { id: productId, qty: 1 };
+                const updatedUser = { ...user, cart: [...user.cart, newProduct] };
+                updateUser(updatedUser);
+            }
+            alert("Product has been added to the cart");
         }
     };
 
@@ -71,9 +82,20 @@ const ProductsPage = () => {
         const userString = localStorage.getItem("user");
         if (userString) {
             const user = JSON.parse(userString);
-            const updatedUser = { ...user, wishlist: [...user.wishlist, productId] };
-            updateUser(updatedUser);
-            alert("Product has beed added to wishlist");
+            const existingProductIndex = user.wishlist.findIndex(item => item.id === productId);
+            if (existingProductIndex !== -1) {
+                // If the product already exists in the wishlist, update the quantity
+                const updatedWishlist = [...user.wishlist];
+                updatedWishlist[existingProductIndex].qty += 1;
+                const updatedUser = { ...user, wishlist: updatedWishlist };
+                updateUser(updatedUser);
+            } else {
+                // If the product is not in the wishlist, add it as a new object
+                const newProduct = { id: productId, qty: 1 };
+                const updatedUser = { ...user, wishlist: [...user.wishlist, newProduct] };
+                updateUser(updatedUser);
+            }
+            alert("Product has been added to the wishlist");
         }
     };
       

@@ -115,9 +115,9 @@ const Header = () => {
                 </div>
             </nav>
             <div className="collapse">
-                <div className={`collapse ${showCollapse ? 'show' : 'hide'}`}>
+                <div className={`collapsible ${showCollapse ? 'show' : 'hide'}`}>
                     <div className="categories">
-                        <Link to="/home"><h3>All Products</h3></Link>
+                        <Link to="/products"><h3>All Products</h3></Link>
                         <br />
                         <h3>Categories</h3>
                         <br />

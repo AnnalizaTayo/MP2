@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { FaHome, FaArrowUp } from 'react-icons/fa';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import PawIcon from './components/PawIcon';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -11,75 +15,104 @@ import VetConsultationPage from './pages/VetConsultationPage';
 import WishListPage from './pages/WishListPage';
 import CartPage from './pages/CartPage';
 import ProductManagement from './adminPages/ProductManagement';
-import Footer from './components/Footer';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showButton, setShowButton] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const delay = setTimeout(() => {
-      const userString = localStorage.getItem("user");
-      const user = userString ? JSON.parse(userString) : null;
-      setIsLoggedIn(!!user);
-      setIsLoading(false);
-    }, 1000);
+    const userString = localStorage.getItem('user');
+    setIsLoggedIn(!!userString);
+    setIsLoading(false);
+  }, []);
 
-    return () => clearTimeout(delay);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.pageYOffset > 200) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleNavigateToLogin = () => {
-    alert("You are not logged in. Please login to your account.");
-    navigate("/login");
+    alert('You are not logged in. Please login to your account.');
+    navigate('/login');
+  };
+
+  const handleBackToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div>
-      <Header />
       {isLoading ? (
-        <div>Loading...</div>
+        <PawIcon />
       ) : (
-        <Routes>
-          {/* ... existing routes ... */}
-          {isLoggedIn ? (
-            <>
-              <Route path="/consultation" element={<VetConsultationPage />} />
-              <Route path="/wishlist" element={<WishListPage />} />
-              <Route path="/cart" element={<CartPage />} />
-            </>
-          ) : (
-            <>
+        <div>
+          <PawIcon />
+          <Header />
+          <Routes>
+            {isLoggedIn ? (
+              <>
+                <Route path="/consultation" element={<VetConsultationPage />} />
+                <Route path="/wishlist" element={<WishListPage />} />
+                <Route path="/cart" element={<CartPage />} />
+              </>
+            ) : (
+              <>
+                <Route
+                  path="/consultation"
+                  element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
+                />
+                <Route
+                  path="/wishlist"
+                  element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
+                />
+                <Route
+                  path="/cart"
+                  element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
+                />
+              </>
+            )}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/products" element={<ProductsPage />} />
+            {isLoggedIn ? (
+              <Route path="/profile" element={<ProfilePage />} />
+            ) : (
               <Route
-                path="/consultation"
+                path="/profile"
                 element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
               />
-              <Route
-                path="/wishlist"
-                element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
-              />
-              <Route
-                path="/cart"
-                element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
-              />
-            </>
+            )}
+            <Route path="/admin" element={<ProductManagement />} />
+          </Routes>
+          {showButton && (
+            <button className="back-to-top-button" onClick={handleBackToTop}>
+              <FaArrowUp />
+            </button>
           )}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/products" element={<ProductsPage />} />
-          {isLoggedIn ? (
-            <Route path="/profile" element={<ProfilePage />} />
-          ) : (
-            <Route
-              path="/profile"
-              element={<ProtectedPage onNavigate={handleNavigateToLogin} />}
-            />
+          {location.pathname !== '/' && (
+            <Link to="/" className="floating-button">
+              <FaHome />
+            </Link>
           )}
-          <Route path="/admin" element={<ProductManagement />} />
-        </Routes>
+          <Footer />
+        </div>
       )}
-      <Footer />
     </div>
   );
 }

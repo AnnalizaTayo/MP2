@@ -173,26 +173,28 @@ li {
 
     /* collapsible */
 
-        .show {
+        .collapse {
+            position: absolute;background-color: #ffffff !important;
+            color: #836953;
+            left:0;
+            margin: 0%;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .collapsible.show {
             display: block;
             padding: 3rem;
-            margin: 0;
-            background-color: #ffffff !important;
+            border: 2px solid #836953;
+            box-shadow: 5px 10px #836953;
+            
         }
 
         .hide {
             display: none;
         }
 
-        .collapse {
-            background-color: #FFFFFF;
-            color: #836953;
-            position: absolute;
-            left:0;
-            margin: 0%;
-            z-index: 1;
-            width: 60%;
-        }
+        
 
         .categories a:hover li , .categories a:hover h3 , .categories a:hover h4 {
             background-color: #f8c8dc;

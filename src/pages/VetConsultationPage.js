@@ -3,6 +3,8 @@ import { DayPicker } from 'react-day-picker';
 import {BsTrashFill} from 'react-icons/bs'
 import 'react-day-picker/dist/style.css';
 import "./VetConsultationPage.css";
+//import "./Consultation.css";
+import Chatbot from "../components/ChatBot";
 
 const VetConsultationPage = () => {
   const userString = localStorage.getItem("user");
@@ -32,7 +34,12 @@ const VetConsultationPage = () => {
       .then((data) => {
         const foundUser = data.find((u) => u.email === user?.email);
         if (foundUser) {
-          setConsultationLog(foundUser.vetconsultationlog || []);
+          const sortedLog = foundUser.vetconsultationlog
+            ? foundUser.vetconsultationlog.sort((a, b) =>
+                new Date(b.logDate) - new Date(a.logDate)
+              )
+            : [];
+          setConsultationLog(sortedLog);
           setConsultationSchedule(foundUser.vetconsultationschedule || []);
         }
       })
@@ -102,11 +109,11 @@ const VetConsultationPage = () => {
     }
 
     // Generate a unique reference number
-    const referenceNumber = Math.random().toString(36).substr(2, 9);
+    const idNumber = consultationLog.length > 0 ? consultationLog[0].id + 1 : 1;
 
     // Prepare the appointment data to be posted
     const appointmentData = {
-      referenceNumber: referenceNumber,
+      referenceNumber: idNumber,
       petName: user.petName || "",
       concern: concern,
       date: consultationDate.toISOString(),
@@ -220,7 +227,7 @@ const VetConsultationPage = () => {
           <h2>{user?.petName}</h2>
           <p>Type: {user?.petType}</p>
         </div>
-        <div className="appointment-schedule loglist">
+        <div className="appointment-schedule">
           <h2>Upcoming Appointments</h2>
           {consultationSchedule.length === 0 ? (
             <p>No upcoming appointments</p>
@@ -245,11 +252,10 @@ const VetConsultationPage = () => {
                 ))}
               </ul>
             </div>
-            
           )}
         </div>
         <div className="consultation-log loglist">
-          <h2>Consultation Log</h2>
+          <h2>Consultation Logs</h2>
           {consultationLog.length === 0 ? (
             <p>No consultation log entries</p>
           ) : (
@@ -271,7 +277,6 @@ const VetConsultationPage = () => {
                 ))}
               </ul>
             </div>
-            
           )}
         </div>
       </aside>
@@ -281,7 +286,7 @@ const VetConsultationPage = () => {
         <h3>Schedule a Vet Consultation</h3>
         <form onSubmit={handleScheduleConsultation}>
           <div className="form-group">
-            <label htmlFor="consultationDate">Consultation Date:</label>
+            <label htmlFor="consultationDate"><h4>Consultation Date:</h4></label>
             <DayPicker selected={consultationDate} onDayClick={handleDayClick} />
           </div>
           <div className="form-group">
@@ -311,12 +316,15 @@ const VetConsultationPage = () => {
             ></textarea>
           </div>
           {errorMessage && <div className="error">{errorMessage}</div>}
-          <button type="submit" disabled={!consultationDate || !consultationTime}>
+          <button type="submit" className="sched" disabled={!consultationDate || !consultationTime}>
             Schedule Consultation
           </button>
         </form>
         
       </div>
+
+      {/* Display the poweecha bot */}
+      <Chatbot/>
     </div>
   );
 };
