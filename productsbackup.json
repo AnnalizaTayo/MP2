@@ -11,7 +11,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/400x400/9c27b0/ffffff&text=SuperBite Chicken and Rice Formula Dry Dog Food",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "1"
     },
     {
@@ -25,7 +25,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Whisker's Choice Indoor Cat Formula Dry Cat Food",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "2"
     },
     {
@@ -39,7 +39,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Pawfect Blend Grain-Free Salmon and Sweet Potato Dry Dog Food",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "3"
     },
     {
@@ -53,7 +53,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Meow Mix Tender Centers Tuna and Whitefish Dry Cat Food",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "4"
     },
     {
@@ -67,7 +67,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=NutriNibbles Timothy Hay Pellets for Guinea Pigs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "5"
     },
     {
@@ -81,7 +81,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Rabbit Rations Premium Rabbit Food Pellets",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "6"
     },
     {
@@ -95,7 +95,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Hamster Happy Snacks Seed Mix for Hamsters",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "7"
     },
     {
@@ -109,7 +109,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Ferret Feast Complete Ferret Food",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "8"
     },
     {
@@ -123,7 +123,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Turtle Tidbits Floating Pellets for Aquatic Turtles",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "9"
     },
     {
@@ -137,7 +137,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Feathered Friend Parakeet Seed Mix",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "10"
     },
     {
@@ -151,7 +151,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Colorful Cockatiel Pellet Blend",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "11"
     },
     {
@@ -165,7 +165,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Canary Cuisine Premium Canary Food",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "12"
     },
     {
@@ -179,7 +179,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Finny Feast Tropical Fish Flakes",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "13"
     },
     {
@@ -193,7 +193,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bottom Dwellers Algae Wafers for Plecos",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "14"
     },
     {
@@ -207,7 +207,7 @@
      "subcategory": "Food",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Goldfish Gourmet Pellet Blend",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "15"
     },
     {
@@ -221,7 +221,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bacon Bites Crunchy Dog Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "16"
     },
     {
@@ -235,7 +235,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Purrfection Salmon and Catnip Crunchy Cat Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "17"
     },
     {
@@ -249,7 +249,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Dental Delights Mint-Flavored Dog Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "18"
     },
     {
@@ -263,7 +263,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Meow-nificent Tuna Soft Cat Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "19"
     },
     {
@@ -277,7 +277,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=NutriNibbles Yogurt Drops for Guinea Pigs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "20"
     },
     {
@@ -291,7 +291,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Chewy Carrot Bites for Rabbits",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "21"
     },
     {
@@ -305,7 +305,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Yogurt-Dipped Sunflower Seeds for Hamsters",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "22"
     },
     {
@@ -319,7 +319,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Ferret Frenzy Meaty Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "23"
     },
     {
@@ -333,7 +333,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Algae Wafers for Plecos and Bottom Feeders",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "24"
     },
     {
@@ -347,7 +347,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Amphibian Munchies Dried River Shrimp for Frogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "25"
     },
     {
@@ -361,7 +361,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Alfalfa Hay Cubes for Rabbits and Guinea Pigs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "26"
     },
     {
@@ -375,7 +375,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Amphibian Amphibalance Vitamin and Mineral Complex for Frogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "27"
     },
     {
@@ -389,7 +389,7 @@
      "subcategory": "Leashes and Collars",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Adventure Seeker Reflective Dog Harness and Leash Set",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "28"
     },
     {
@@ -403,7 +403,7 @@
      "subcategory": "Aquarium",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Algae Scrubber Pad for Aquarium Glass",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "29"
     },
     {
@@ -417,7 +417,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Betta Bliss Water Conditioner with Essential Minerals",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "30"
     },
     {
@@ -431,7 +431,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bottom Dwellers Algae Control Supplement for Plecos",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "31"
     },
     {
@@ -445,7 +445,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bearded Dragon Calcium and Vitamin D3 Powder",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "32"
     },
     {
@@ -459,7 +459,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Birdie Ball Puzzle Toy for Parakeets",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "33"
     },
     {
@@ -473,7 +473,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bubbly Shipwreck Aquarium Decoration",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "34"
     },
     {
@@ -487,7 +487,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Busy Buddy Twist 'n Treat Dog Puzzle Toy",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "35"
     },
     {
@@ -501,7 +501,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bacon Flavor Dental Chew Stick for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "36"
     },
     {
@@ -515,7 +515,7 @@
      "subcategory": "Accessories",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Bird Bath House with Perch",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "37"
     },
     {
@@ -529,7 +529,7 @@
      "subcategory": "Aquarium",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Betta Bliss Floating Breeding Box",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "38"
     },
     {
@@ -543,7 +543,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Crunchy Kale and Carrot Treats for Chinchillas",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "39"
     },
     {
@@ -557,7 +557,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Colorful Fruit Stick Treats for Cockatiels",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "40"
     },
     {
@@ -571,7 +571,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Canary Crunchy Honey Seed Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "41"
     },
     {
@@ -585,7 +585,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Color-Enhancing Krill Treats for Goldfish",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "42"
     },
     {
@@ -599,7 +599,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cichlid Delight Floating Pellet Treats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "43"
     },
     {
@@ -613,7 +613,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Crunchy Cricket Treats for Leopard Geckos",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "44"
     },
     {
@@ -627,7 +627,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Chinchilla Chew Sticks with Timothy Hay",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "45"
     },
     {
@@ -641,7 +641,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Chinchilla Coat and Skin Health Omega-3 Oil",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "46"
     },
     {
@@ -655,7 +655,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cockatiel Plumage Brightening Vitamin Supplement",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "47"
     },
     {
@@ -669,7 +669,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Canary Digestive Aid Probiotic Powder",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "48"
     },
     {
@@ -683,7 +683,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cichlid Vitality Vitamin and Mineral Pellets",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "49"
     },
     {
@@ -697,7 +697,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Crested Gecko Fruit and Insect Balanced Diet Powder",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "50"
     },
     {
@@ -711,7 +711,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Chinchilla Dental Care Vitamin C Supplement",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "51"
     },
     {
@@ -725,7 +725,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cuddle Pals Plush Squeaky Dog Toy",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "52"
     },
     {
@@ -739,7 +739,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Chinchilla Chew Block Assortment",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "53"
     },
     {
@@ -753,7 +753,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Canary Carousel Swing with Bells",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "54"
     },
     {
@@ -767,7 +767,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Colorful Coral Cave Hideout for Aquariums",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "55"
     },
     {
@@ -781,7 +781,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cozy Cloud Memory Foam Dog Bed",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "56"
     },
     {
@@ -795,7 +795,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cuddle Pouch Cozy Cat Bed with Sherpa Lining",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "57"
     },
     {
@@ -809,7 +809,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cozy Cottontail Fluffy Bedding for Rabbits",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "58"
     },
     {
@@ -823,7 +823,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Chinchilla Chill Zone Cooling Mat",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "59"
     },
     {
@@ -837,7 +837,7 @@
      "subcategory": "Leashes and Collars",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Classic Comfort Dog Collar with Adjustable Buckle",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "60"
     },
     {
@@ -851,7 +851,7 @@
      "subcategory": "Accessories",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Cockatiel Climbing Ladder Toy",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "61"
     },
     {
@@ -865,7 +865,7 @@
      "subcategory": "Accessories",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Canary Swing with Mirror",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "62"
     },
     {
@@ -879,7 +879,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Dino-Delight Plush Chew Toy for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "63"
     },
     {
@@ -893,7 +893,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Durable Rubber Bone Chew Toy for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "64"
     },
     {
@@ -907,7 +907,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Dental Delight Twisted Chew Stick for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "65"
     },
     {
@@ -921,7 +921,7 @@
      "subcategory": "Grooming Tools",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Deluxe Bristle Brush for Dogs with Long Hair",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "66"
     },
     {
@@ -935,7 +935,7 @@
      "subcategory": "Aquarium",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Digital Fish Tank Thermometer",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "67"
     },
     {
@@ -949,7 +949,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Elevated Cooling Mesh Bed for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "68"
     },
     {
@@ -963,7 +963,7 @@
      "subcategory": "Aquarium",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=EasyClean Gravel Vacuum for Fish Tanks",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "69"
     },
     {
@@ -977,7 +977,7 @@
      "subcategory": "Treats",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Freeze-Dried Brine Shrimp Treats for Betta Fish",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "70"
     },
     {
@@ -991,7 +991,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Feline FlexiCare Omega-3 Fish Oil Supplement for Cats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "71"
     },
     {
@@ -1005,7 +1005,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Ferret Vitality Ferretone Supplement",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "72"
     },
     {
@@ -1019,7 +1019,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Feathered Friend Calcium Boost for Parakeets",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "73"
     },
     {
@@ -1033,7 +1033,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Finch Feather Conditioner with Omega-6 Fatty Acids",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "74"
     },
     {
@@ -1047,7 +1047,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Ferret Coat and Skin Health Omega-3 Fatty Acid Supplement",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "75"
     },
     {
@@ -1061,7 +1061,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Fluffy Friends Interactive Plush Cat Toy",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "76"
     },
     {
@@ -1075,7 +1075,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Feathered Frenzy Interactive Plush Bird Toy for Cats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "77"
     },
     {
@@ -1089,7 +1089,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Ferret Frenzy Interactive Tunnel Toy",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "78"
     },
     {
@@ -1103,7 +1103,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Floating Betta Leaf Hammock",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "79"
     },
     {
@@ -1117,7 +1117,7 @@
      "subcategory": "Grooming Tools",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Fur-Ever Shedding Brush for Dogs and Cats",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "80"
     },
     {
@@ -1131,7 +1131,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Fluffy Fleece Nesting Material for Hamsters",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "81"
     },
     {
@@ -1145,7 +1145,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Ferret Frenzy Tunnel Bed",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "82"
     },
     {
@@ -1159,7 +1159,7 @@
      "subcategory": "Aquarium",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Fishy Fin Friends Water Conditioner",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "83"
     },
     {
@@ -1173,7 +1173,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Guinea Pig Essentials Vitamin C Supplement",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "84"
     },
     {
@@ -1187,7 +1187,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Goldfish Digestive Aid Probiotics",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "85"
     },
     {
@@ -1201,7 +1201,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Guinea Pig Glee Tunnel Hideout",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "86"
     },
     {
@@ -1215,7 +1215,7 @@
      "subcategory": "Bedding",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Gerbil Getaway Hut",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "87"
     },
     {
@@ -1229,7 +1229,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Joint Power Plus Glucosamine Chews for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "88"
     },
     {
@@ -1243,7 +1243,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Hamster Health Boost Multivitamin Drops",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "89"
     },
     {
@@ -1257,7 +1257,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Leopard Gecko Gut Load Cricket Supplement",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "90"
     },
     {
@@ -1271,7 +1271,7 @@
      "subcategory": "Supplements",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Hamster and Gerbil Digestive Health Probiotic Drops",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "91"
     },
     {
@@ -1285,7 +1285,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Hamster Haven Exercise Ball",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "92"
     },
     {
@@ -1299,7 +1299,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Interactive Foraging Toy for Cockatiels",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "93"
     },
     {
@@ -1313,7 +1313,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=LED Light-Up Jellyfish Decoration for Fish Tanks",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "94"
     },
     {
@@ -1327,7 +1327,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=IQ Challenge Treat Dispenser Puzzle Toy for Dogs",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "95"
     },
     {
@@ -1341,7 +1341,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Kitty Bites Catnip-Infused Chew Toy",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "96"
     },
     {
@@ -1355,7 +1355,7 @@
      "subcategory": "Leashes and Collars",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Hands-Free Jogging Dog Leash with Waist Belt",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "97"
     },
     {
@@ -1369,7 +1369,7 @@
      "subcategory": "Leashes and Collars",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Hiking Hound Retractable Dog Leash with LED Light",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "98"
     },
     {
@@ -1383,7 +1383,7 @@
      "subcategory": "Toys",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Macaw Maracas Chew Toy for Large Parrots",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "99"
     },
     {
@@ -1397,7 +1397,7 @@
      "subcategory": "Accessories",
      "productimage": "https://dummyimage.com/600x400/836a53/ffffff&text=Macaw Majestic Feathered Costume",
      "stock": "999",
-     "rating": {},
+     "rating": [],
      "productid": "100"
     }
    ]

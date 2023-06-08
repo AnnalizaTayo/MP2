@@ -66,7 +66,7 @@ function Chatbot() {
                 </div>
                 <form className="chatbot__input" onSubmit={handleMessageSubmit}>
                     <input type="text" name="userInput" placeholder="Type your message..." />
-                    <button type="submit">Send</button>
+                    <button type="submit" className='button'>Send</button>
                 </form>
             </div>
         </div>

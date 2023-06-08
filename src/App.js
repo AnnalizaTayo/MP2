@@ -6,6 +6,7 @@ import { FaHome, FaArrowUp } from 'react-icons/fa';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import PawIcon from './components/PawIcon';
+//import Search from './components/search';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -64,7 +65,8 @@ function App() {
           <PawIcon />
           <Header />
           <Routes>
-            {isLoggedIn ? (
+            {
+            isLoggedIn ? (
               <>
                 <Route path="/consultation" element={<VetConsultationPage />} />
                 <Route path="/wishlist" element={<WishListPage />} />
@@ -89,7 +91,14 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/pettype/:pettype/category/:category/search/:search" element={<ProductsPage />}/>
+            <Route path="/products/pettype/:pettype/category/:category" element={<ProductsPage />}/>
+            <Route path="/products/pettype/:pettype" element={<ProductsPage />}/>
+            <Route path="/products/category/:category/search/:search" element={<ProductsPage />}/>
+            <Route path="/products/category/:category" element={<ProductsPage />}/>
+            <Route path="/products/search/:search" element={<ProductsPage />}/>
+            <Route exact path="/products" element={<ProductsPage />} />
+            {/*//pettype,category,search*/}
             {isLoggedIn ? (
               <Route path="/profile" element={<ProfilePage />} />
             ) : (
@@ -99,6 +108,7 @@ function App() {
               />
             )}
             <Route path="/admin" element={<ProductManagement />} />
+            {/* <Route path="/search" element={<Search />} /> */}
           </Routes>
           {showButton && (
             <button className="back-to-top-button" onClick={handleBackToTop}>

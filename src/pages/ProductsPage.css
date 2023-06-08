@@ -1,0 +1,17 @@
+.productspage {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.right {
+    overflow: auto;
+    height: 90vh;
+}
+
+.filterbuttons ul li {
+ color: #FFFFFF;
+ border: none;
+}
+
+
+
