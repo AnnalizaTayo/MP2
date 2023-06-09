@@ -1,0 +1,68 @@
+.columnLabel, .productLists li {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+    color: #836953;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+    padding-top: 14px;
+}
+
+.columnLabel {
+    background-color: #F8C8DC;
+}
+
+
+.productLists li {
+    background-color: #FFFFFF;
+    border: 1px solid #F8C8DC;
+}
+
+.productLists li input {
+    margin: auto;
+}
+
+.columnLabel input {
+    margin: auto;
+}
+
+ul.productLists {
+    padding: 0;
+}
+
+li div img {
+    width: 100%;
+    height: 8vh;
+}
+
+.productinfo {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    text-align: left;
+    gap: 2rem;
+}
+#quantityButton {
+    background-color: #F8C8DC;
+    color: #836953;
+    width: 25px;
+    height: 25px;
+ }
+ #quantityNumber {
+    height: 21px;
+    width: 25%;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+ }
+ .labelButton {
+    background-color: #F8C8DC;
+    color: #836953;
+ }
+
+ .totalItems {
+    color: #836953;
+    display: flex;
+    justify-content: right;
+    gap: 4%;
+ }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BsTrashFill } from 'react-icons/bs';
 import PawIcon from '../components/PawIcon';
+import './CartPage.css';
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -163,9 +164,9 @@ const CartPage = () => {
                       {cartItems.map(item => {
                           const product = getProductById(item.id);
                           return (
-                              <li key={item.id}>
+                              <li key={item.id}   class="itemContainer">
                                   <input type="checkbox" checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
-                                  <div>
+                                  <div className="productinfo">
                                       <img src={product ? product.productimage : ''} alt={product ? product.productname : 'Unknown'} />
                                       <div>{product ? product.productname : 'Unknown'}</div>
                                       <div>Variation</div>
@@ -173,14 +174,14 @@ const CartPage = () => {
 
                                   <div>{product ? `$${product.price}` : 'Unknown'}</div>
                                   <div>
-                                      <button onClick={() => decrementQuantity(item.id)}>-</button>
-                                      <input
+                                      <button id="quantityButton" onClick={() => decrementQuantity(item.id)}>-</button>
+                                      <input id="quantityNumber"
                                           type="number"
                                           min="1"
                                           value={item.qty || 1}
                                           onChange={(event) => handleQuantityChange(event, item.id)}
                                       />
-                                      <button onClick={() => incrementQuantity(item.id)}>+</button>
+                                      <button id="quantityButton" onClick={() => incrementQuantity(item.id)}>+</button>
                                   </div>
                                   <div>
                                       {product ? `$${(parseFloat(product.price) * item.qty).toFixed(2)}` : 'Unknown'}
@@ -203,7 +204,7 @@ const CartPage = () => {
                         <button className="labelButton">Move to Wish List</button>
                       </div>
                     </div>
-                    <div>
+                    <div className="totalItems">
                         <h4>Total({selectedItems.length} item{selectedItems.length === 1 ? '' : 's'}):</h4>
                         <h4>${getTotalAmount()}</h4>
                         <button onClick={handleBuyNow}>Checkout</button>
