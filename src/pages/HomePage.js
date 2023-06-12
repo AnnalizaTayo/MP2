@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import NewsletterModal from './newsmodal';
+import NewsletterModal from '../components/newsmodal';
+import './HomePage.css';
+import dog from '../imgs/dog.png';
+import cat from '../imgs/cat.png';
+import fish from '../imgs/fish.png';
+import others from '../imgs/hamster.png';
+import banner from '../imgs/banner.png';
+import banner2 from '../imgs/bannerPortrait.png';
 
 
 const HomePage = () => {
@@ -13,12 +20,44 @@ const HomePage = () => {
 
 
     return (
-        <div>{showPopup &&(
+        <section>
+            {showPopup &&(
             <NewsletterModal/>
-        )}
-            Still Working on This Page
-            {/* Still waiting for the home page*/}
-        </div>
+            )}
+            <div className="home">
+                <a href="./consultation" className="banner">
+                    <img className="landscape" src={banner} alt="banner"/>
+                    <img className="portrait"  src={banner2} alt="banner"/>
+                </a>
+                <div className='categories'>
+                    <div className="bold-text"><h3>SHOP FOR:</h3></div>
+                    <div className="category-buttons">
+                        <a href="/products/pettype/dog">
+                            <img src={dog} alt="dog" />
+                            <h2>Dog</h2>
+                        </a>
+                        <a href="/products/pettype/cat">
+                            <img src={cat} alt="cat"/>
+                            <h2>Cat</h2>
+                        </a>
+                        <a href="/products/pettype/fish">
+                            <img src={fish} alt="fish"/>
+                            <h2>Fish</h2>
+                        </a>
+                        <a href="/products/pettype/small animals|bird|reptile">
+                            <img src={others} alt="hamster"/>
+                            <h2>Others</h2>
+                        </a>
+                    </div>
+                </div>
+                <div className="colored-box">
+                    <div className="about">
+                        <h3>About PawOrder Pet Shop</h3>
+                    </div>
+                    <div className="foot"><p>"At PawOrder Pet Shop, we're dedicated to simplifying pet care. Our online vet consultation scheduler makes booking appointments effortless. With a user-friendly interface and real-time synchronization using the Google Sheets API, we ensure a seamless experience for both pet owners and our veterinary team. Trust PawOrder for convenient access to professional veterinary advice."</p></div>
+                </div>
+            </div>            
+        </section>
     );
 };
   

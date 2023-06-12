@@ -90,8 +90,8 @@ const SignUpPage = () => {
         );
   
         if (existingUser) {
-          setErrorMessage('Email already exists');
-          return Promise.reject('Email already exists');
+          //setErrorMessage('Email already exists');
+          return Promise.reject('Email already exists.');
         }
   
         // Remove the confirmPassword field
@@ -136,7 +136,7 @@ const SignUpPage = () => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        setErrorMessage('Error signing up');
+        setErrorMessage('Email already exists.');
       });
   };
   
@@ -146,7 +146,9 @@ const SignUpPage = () => {
       <div className="signup-form">
         <header>Sign Up</header>
         <form onSubmit={handleSubmit}>
-          {errorMessage && <p>{errorMessage}</p>}
+          {errorMessage && (
+            <p className="error-message">{errorMessage}</p>
+          )}
           <div className="field">
             <input
               type="text"

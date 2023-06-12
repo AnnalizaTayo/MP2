@@ -316,7 +316,7 @@ const VetConsultationPage = () => {
             ></textarea>
           </div>
           {errorMessage && <div className="error">{errorMessage}</div>}
-          <button type="submit" className="sched" disabled={!consultationDate || !consultationTime}>
+          <button type="submit" className="sched button" disabled={!consultationDate || !consultationTime}>
             Schedule Consultation
           </button>
         </form>

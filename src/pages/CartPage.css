@@ -36,6 +36,11 @@ li div img {
     height: 8vh;
 }
 
+.cart h1 {
+    margin: 15px;
+    padding: 8px;
+
+}
 .productinfo {
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;
@@ -64,5 +69,59 @@ li div img {
     color: #836953;
     display: flex;
     justify-content: right;
-    gap: 4%;
+    gap: 5%;
+    margin-right: 20px;
+    padding-right: 14px;
+    padding-bottom: 14px;
  }
+
+ .allSelectedButtons {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+    color: #836953;
+    padding: 10px;
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+    padding-top: 14px;
+ }
+
+ .allSelectedButtons input {
+    margin: auto;
+ }
+
+ .labelButton {
+    border: 1px solid #836953;
+    padding: 6px;
+    font-size: 18px;
+    text-align: center;
+    width: 11%;
+}
+.wishlistButton {
+    border: 1px solid #836953;
+    width: 17%;
+    height: 35px;
+    border-radius: 3px;
+    font-size: 17px;
+}
+
+.checkoutButton {
+    border: 2px solid #836953;
+    padding: 6px;
+    font-size: 38px;
+    text-align: center;
+    width: 8%;
+    border-radius: 4px;
+}
+
+.totalItems h4 {
+    font-size: 24px;
+}
+
+.labelButton2 {
+    color: #836953;
+    padding: 10px;
+    text-align: left;
+    font-size: 24px;
+    display: flex;
+}

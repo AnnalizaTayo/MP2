@@ -39,7 +39,7 @@
 
 .floating-button , .back-to-top-button {
   position: fixed;
-  bottom: 2rem;
+  bottom: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,27 +51,15 @@
   text-decoration: none;
   font-size: 2rem;
   border: 2px solid #836953;
+  animation: blink 1s infinite;
 }
 
 .floating-button {
-  animation: bounce 1.5s infinite;
   left: 2rem;
 }
 
-@keyframes bounce {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 
 .back-to-top-button {
-  animation: blink 1s infinite;
   right: 2rem;
 }
 
@@ -84,5 +72,11 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width:768px) {
+  .floating-button {
+    display: hidden;
   }
 }

@@ -24,6 +24,7 @@
 
 .newsletter-box input[type="email"] {
     padding: 0.5rem;
+    border-radius: 10px 0 0 10px;
     border: none;
     flex: 1;
     max-width: 80%;
@@ -32,6 +33,7 @@
 .newsletter-box button {
     padding: 8px 16px;
     background-color: #F8c8dc;
+    border-radius: 0 10px 10px 0;
     border: 1px solid;
     color: #836953;
     cursor: pointer;

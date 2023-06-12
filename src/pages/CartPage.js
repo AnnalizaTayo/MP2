@@ -194,20 +194,20 @@ const CartPage = () => {
                       })}
                   </ul>
                   <div className="footing">
-                    <div>
+                    <div className="allSelectedButtons">
                       <input type="checkbox" id="bottomSelectAll" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()} />
-                      <div>
+                      <div className="labelButton2">
                           <button className="labelButton" onClick={() => handleSelectAll()}>
                               Select All
                           </button>
                         <button className="labelButton" onClick={handleDelete}>Delete</button>
-                        <button className="labelButton">Move to Wish List</button>
+                        <button className="wishlistButton">Move to Wish List</button>
                       </div>
                     </div>
                     <div className="totalItems">
                         <h4>Total({selectedItems.length} item{selectedItems.length === 1 ? '' : 's'}):</h4>
                         <h4>${getTotalAmount()}</h4>
-                        <button onClick={handleBuyNow}>Checkout</button>
+                        <button className="checkoutButton" onClick={handleBuyNow}>Checkout</button>
                     </div>
                   </div>
                 </div>

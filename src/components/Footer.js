@@ -14,6 +14,9 @@ const Footer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const emailInput = document.getElementById('subs-email');
+    const email = emailInput.value.trim();
+
     if (email) {
       const url = 'https://6478b937362560649a2e5ab6.mockapi.io/api/v1/subscribers';
       const data = { email };
@@ -40,7 +43,6 @@ const Footer = () => {
             })
               .then((response) => response.json())
               .then((result) => {
-                console.log('Newsletter subscription successful:', result);
                 // Reset the email input after successful submission
                 setEmail('');
                 // Show the subscription success message
@@ -60,6 +62,7 @@ const Footer = () => {
         });
     }
   };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -68,7 +71,7 @@ const Footer = () => {
             <h2>Newsletter</h2>
             <p>Subscribe to our newsletter and stay updated with the latest pet news, promotions, and more!</p>
             <form className='subs'onSubmit={handleSubmit}>
-              <input type="email" placeholder="Enter your email.." value={email} onChange={handleEmailChange}/>
+              <input type="email" id='subs-email' placeholder="Enter your email.." value={email} onChange={handleEmailChange} required/>
               <button type='submit'>Subscribe</button>
             </form>
             {showSubscriptionSuccess && (

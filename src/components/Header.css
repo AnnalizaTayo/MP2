@@ -37,7 +37,7 @@ li {
 
     .movable-nav {
         display: grid;
-        grid-template-columns: 3fr 1.5fr 1.5fr 1.5fr 1.5fr;
+        grid-template-columns: 3fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
         width: 100%;
         margin: 0 auto;
     }
@@ -154,19 +154,25 @@ li {
         }
 
         .search-form button{
-            width: 15%;
+            width: 15% !important;
             border: 0.25rem;
             background: #836953;
             border-top-right-radius: 10px;
             border-bottom-right-radius: 10px;
             cursor: pointer;
+            padding: auto;
         }
 
         .search-form:hover button{
+            width: 15% !important;
+            border: 0.25rem;
             background: #f8c8dc;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            cursor: pointer;
         }
 
-        button .icon path{
+        .search-form button .icon path{
             color: #FFFFFF;
             margin: auto;
         }
@@ -251,7 +257,7 @@ li {
         
         @media (min-width:768px) {
         
-            .movable-nav .lense , .movable-nav .home {
+            .movable-nav .home {
                 display: none;
             }
         
@@ -266,7 +272,7 @@ li {
                 }
     
                 .movable-nav {
-                    grid-template-columns: 4.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
+                    grid-template-columns: 4.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
                 } 
         
                 .search-form {

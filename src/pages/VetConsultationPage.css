@@ -1,4 +1,5 @@
 .vet-consultation-page {
+  width: 100vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   color: #836953;
@@ -20,7 +21,7 @@ aside {
 .pet-profile img {
   width: 10rem;
   height: 10rem;
-  margin: auto;
+  margin: 1rem auto;
   display: flex;
   border-radius: 50%;
 }
@@ -146,20 +147,6 @@ width: 100%;
   color: #836953;
 }
 
-button.sched {
-  background-color: #f8c8dc;
-  color:#836953;
-  padding: 0.5rem;
-  border-radius: 10px;
-  border: 1px solid #836953;
-}
-
-button.sched:hover {
-  background-color: #836953;
-  color:#FFFFFF;
-  padding: 0.5rem;
-  border-radius: 10px;
-}
 
 
 /* ChatBot Styling */
@@ -249,15 +236,7 @@ button.sched:hover {
   padding: 8px 16px;
   border: none;
   border-radius: 10px;
-  background-color: #f8c8dc;
-  color: #836953;
   cursor: pointer;
-  border: 1px solid #836953;
-}
-
-.chatbot__input:hover button {
-  background-color: #836953;
-  color: #ffffff;
   border: 1px solid #836953;
 }
 
