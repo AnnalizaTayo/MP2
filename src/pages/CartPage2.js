@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { BsTrashFill } from 'react-icons/bs';
 import PawIcon from '../components/PawIcon';
+import './CartPage.css';
 import Checkout from '../components/Checkout';
 
-const WishListPage = () => {
-    const [wishListItems, setWishListItems] = useState([]);
+const CartPage = () => {
+    const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [cart, setCart] = useState([]);    
-    const [transaction, setTransaction] = useState([]);
+    const [wishlist, setWishlist] = useState([]);
+    const [transactionItems, setTransactionItems] = useState([]);
     
     useEffect(() => {
         const userString = localStorage.getItem('user');
         if (userString) {
             const user = JSON.parse(userString);
-            setCart(user.cart);
-            setWishListItems(user.wishlist);
-            setTransaction(user.transaction);
+            setCartItems(user.cart);
+            setWishlist(user.wishlist);
             setLoading(false);
         }
         fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products')
@@ -38,7 +38,7 @@ const WishListPage = () => {
         }
     
         // Check if all items are selected
-        const allItemIds = wishListItems.map(item => item.id);
+        const allItemIds = cartItems.map(item => item.id);
         const isAllSelected = allItemIds.every(id => selectedItems.includes(id));
     
         // Update the checkbox in columnLabel
@@ -48,44 +48,43 @@ const WishListPage = () => {
         }
     };
     
-
-    const updateQuantityInWishList = (itemId, newQty) => {
-        const updatedWishListItems = wishListItems.map(item => {
+    const updateQuantityInCart = (itemId, newQty) => {
+        const updatedCartItems = cartItems.map(item => {
             if (item.id === itemId) {
                 return { ...item, qty: newQty };
             }
             return item;
         });
-        setWishListItems(updatedWishListItems);
-        updateWishListItemsInStorage(updatedWishListItems); // Update the wish list items in local storage
-        updateWishListItemsInApi(updatedWishListItems); // Update the wish list items in the API
+        setCartItems(updatedCartItems);
+        updateCartItemsInStorage(updatedCartItems); // Update the cart items in local storage
+        updateCartItemsInApi(updatedCartItems); // Update the cart items in the API
     };
 
     const handleQuantityChange = (event, itemId) => {
         const newQty = parseInt(event.target.value);
-        updateQuantityInWishList(itemId, newQty);
+        updateQuantityInCart(itemId, newQty);
     };
 
     const incrementQuantity = (itemId) => {
-        const item = wishListItems.find(item => item.id === itemId);
+        const item = cartItems.find(item => item.id === itemId);
         if (item) {
             const newQty = item.qty + 1;
-            updateQuantityInWishList(itemId, newQty);
+            updateQuantityInCart(itemId, newQty);
         }
     };
 
     const decrementQuantity = (itemId) => {
-        const item = wishListItems.find(item => item.id === itemId);
+        const item = cartItems.find(item => item.id === itemId);
         if (item && item.qty > 1) {
             const newQty = item.qty - 1;
-            updateQuantityInWishList(itemId, newQty);
+            updateQuantityInCart(itemId, newQty);
         }
     };
 
     const getTotalAmount = () => {
         let total = 0;
         selectedItems.forEach(itemId => {
-            const item = wishListItems.find(item => item.id === itemId);
+            const item = cartItems.find(item => item.id === itemId);
             if (item) {
                 const product = getProductById(item.id);
                 if (product) {
@@ -101,73 +100,44 @@ const WishListPage = () => {
     };
 
     const handleSelectAll = () => {
-        var input = document.getElementById('submitButton');
-        if (selectedItems.length === wishListItems.length) {
+        if (selectedItems.length === cartItems.length) {
             setSelectedItems([]);
-            input.disabled = true;
         } else {
-            const allItemIds = wishListItems.map(item => item.id);
+            const allItemIds = cartItems.map(item => item.id);
             setSelectedItems(allItemIds);
-            input.disabled = false;
         }
     };
 
     const handleDelete = () => {
-        const updatedWishListItems = wishListItems.filter(item => !selectedItems.includes(item.id));
-        setWishListItems(updatedWishListItems);
+        const updatedCartItems = cartItems.filter(item => !selectedItems.includes(item.id));
+        setCartItems(updatedCartItems);
         setSelectedItems([]);
     
-        updateWishListItemsInStorage(updatedWishListItems);
-        updateWishListItemsInApi(updatedWishListItems);
+        updateCartItemsInStorage(updatedCartItems);
+        updateCartItemsInApi(updatedCartItems);
+        
+        selectedItems.forEach(itemId => {
+            handleDeleteSelectedItem(itemId);
+        });
+        setSelectedItems([]);
     };
 
-    const moveToCart = () => {
-        const updatedWishListItems = wishListItems.filter(item => !selectedItems.includes(item.id));
-        const selectedWishListItems = wishListItems.filter(item => selectedItems.includes(item.id));
+    const moveToWishlist = () => {
+        const updatedCartItems = cartItems.filter(item => !selectedItems.includes(item.id));
+        const selectedCartItems = cartItems.filter(item => selectedItems.includes(item.id));
     
-        const updatedCartItems = [...cart, ...selectedWishListItems];
+        const updatedWishlistItems = [...wishlist, ...selectedCartItems];
     
-        setWishListItems(updatedWishListItems);
-        setCart(updatedCartItems);
+        setCartItems(updatedCartItems);
+        setWishlist(updatedWishlistItems);
         setSelectedItems([]);
     
-        updateWishListItemsInStorage(updatedWishListItems);
         updateCartItemsInStorage(updatedCartItems);
-        updateWishListItemsInApi(updatedWishListItems);
+        updateWishlistItemsInStorage(updatedWishlistItems);
         updateCartItemsInApi(updatedCartItems);
+        updateWishlistItemsInApi(updatedWishlistItems);
     };
         
-
-    const updateWishListItemsInStorage = (updatedWishListItems) => {
-        const userString = localStorage.getItem('user');
-        if (userString) {
-            const user = JSON.parse(userString);
-            user.wishlist = updatedWishListItems;
-            localStorage.setItem('user', JSON.stringify(user));
-        }
-    };
-
-    const updateWishListItemsInApi = (updatedWishListItems) => {
-        const userString = localStorage.getItem('user');
-        if (userString) {
-            const user = JSON.parse(userString);
-            const userId = user.id;
-            fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users/${userId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ wishlist: updatedWishListItems }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Wish list items updated in API:', data);
-                })
-                .catch(error => {
-                    console.log('Error updating wishlist items in API:', error);
-                });
-        }
-    };
 
     const updateCartItemsInStorage = (updatedCartItems) => {
         const userString = localStorage.getItem('user');
@@ -177,7 +147,7 @@ const WishListPage = () => {
             localStorage.setItem('user', JSON.stringify(user));
         }
     };
-    
+
     const updateCartItemsInApi = (updatedCartItems) => {
         const userString = localStorage.getItem('user');
         if (userString) {
@@ -188,7 +158,38 @@ const WishListPage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ wishlist: updatedCartItems }),
+                body: JSON.stringify({ cart: updatedCartItems }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Cart items updated in API:', data);
+                })
+                .catch(error => {
+                    console.log('Error updating cart items in API:', error);
+                });
+        }
+    };
+
+    const updateWishlistItemsInStorage = (updatedWishlistItems) => {
+        const userString = localStorage.getItem('user');
+        if (userString) {
+            const user = JSON.parse(userString);
+            user.wishlist = updatedWishlistItems;
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+    };
+    
+    const updateWishlistItemsInApi = (updatedWishlistItems) => {
+        const userString = localStorage.getItem('user');
+        if (userString) {
+            const user = JSON.parse(userString);
+            const userId = user.id;
+            fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ wishlist: updatedWishlistItems }),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -201,34 +202,30 @@ const WishListPage = () => {
     };
 
     const handleCheckout = () => {
-        const selectedWishListItems = wishListItems.filter(item => selectedItems.includes(item.id));
-        const updatedWishListItems = wishListItems.filter(item => !selectedItems.includes(item.id));
+        const updatedCartItems = cartItems.filter(item => !selectedItems.includes(item.id));
+        const selectedCartItems = cartItems.filter(item => selectedItems.includes(item.id));
       
+        // Generate reference number
         const numericDate = new Date().getTime();
         const randomNumber = Math.floor(Math.random() * 1000);
-        const transactionId = `${numericDate}${randomNumber}`;
       
-        const transactionItems = selectedWishListItems.map(item => ({
+        // Create new transaction items with reference number and product IDs
+        const newTransactionItems = selectedCartItems.map(item => ({
+          referenceNumber: `${numericDate}${randomNumber}`,
           id: item.id,
           qty: item.qty
         }));
       
-        const updatedTransaction = {
-          transactionId: transactionId,
-          items: transactionItems
-        };
+        // Update the existing transaction array with new transaction items
+        const updatedTransactionItems = [...transactionItems, ...newTransactionItems];
       
-        const updatedTransactionItems = [...transaction, updatedTransaction];
-      
-        console.log(updatedTransactionItems);
-      
-        setWishListItems(updatedWishListItems);
-        setTransaction(updatedTransactionItems);
+        setCartItems(updatedCartItems);
+        setTransactionItems(updatedTransactionItems);
         setSelectedItems([]);
       
-        updateWishListItemsInStorage(updatedWishListItems);
+        updateCartItemsInStorage(updatedCartItems);
         updateTransactionItemsInStorage(updatedTransactionItems);
-        updateWishListItemsInApi(updatedWishListItems);
+        updateCartItemsInApi(updatedCartItems);
         updateTransactionItemsInApi(updatedTransactionItems);
     };
       
@@ -264,44 +261,30 @@ const WishListPage = () => {
     };
 
     const handleDeleteSelectedItem = (itemId) => {
-        const updatedWishListItems = wishListItems.filter(item => item.id !== itemId);
-        setWishListItems(updatedWishListItems);
+        const updatedCartItems = cartItems.filter(item => item.id !== itemId);
+        setCartItems(updatedCartItems);
       
-        // Update the wishList items in local storage
-        updateWishListItemsInStorage(updatedWishListItems);
+        // Update the cart items in local storage
+        updateCartItemsInStorage(updatedCartItems);
       
-        // Update the WishList items in the API
-        updateWishListItemsInApi(updatedWishListItems);
+        // Update the cart items in the API
+        updateCartItemsInApi(updatedCartItems);
     };
       
-    const checkboxes = document.getElementsByClassName('myCheckbox');
-    const submitButton = document.getElementById('submitButton');
-
-    Array.from(checkboxes).forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-        let atLeastOneChecked = false;
-        Array.from(checkboxes).forEach(function(checkbox) {
-        if (checkbox.checked) {
-            atLeastOneChecked = true;
-        }
-        });
-        submitButton.disabled = !atLeastOneChecked;
-    });
-    });
-
+    
     if (loading) {
         return <PawIcon />;
     }
 
     return (
-        <div className="wishlist">
-            <h1>My Wish List</h1>
-            {wishListItems.length === 0 ? (
-                <p>Your wish list is empty.</p>
+        <div className="cart">
+            <h1>My Cart</h1>
+            {cartItems.length === 0 ? (
+                <p>Your cart is empty.</p>
             ) : (
                 <div>
                     <div className="columnLabel">
-                        <input type="checkbox" className="myCheckbox" id="columnLabelCheckbox" checked={selectedItems.length === wishListItems.length} onChange={() => handleSelectAll()}/>
+                        <input type="checkbox" id="columnLabelCheckbox" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()}/>
                         <h4>Product</h4>
                         <h4>Unit Price</h4>
                         <h4>Quantity</h4>
@@ -309,11 +292,11 @@ const WishListPage = () => {
                         <h4>Action</h4>
                     </div>
                     <ul className="productLists">
-                        {wishListItems.map(item => {
+                        {cartItems.map(item => {
                             const product = getProductById(item.id);
                             return (
                                 <li key={item.id}>
-                                    <input type="checkbox" className="myCheckbox" checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
+                                    <input type="checkbox" checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
                                     <div className='productinfo'>
                                         <img src={product ? product.productimage : ''} alt={product ? product.productname : 'Unknown'} />
                                         <div>{product ? product.productname : 'Unknown'}</div>
@@ -343,13 +326,13 @@ const WishListPage = () => {
                     </ul>
                     <div className="footing">
                         <div>
-                            <input type="checkbox" className='myCheckbox' id="bottomSelectAll" checked={selectedItems.length === wishListItems.length} onChange={() => handleSelectAll()} />
+                            <input type="checkbox" id="bottomSelectAll" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()} />
                             <div>
                                 <button className="labelButton" onClick={() => handleSelectAll()}>
                                     Select All
                                 </button>
                                 <button className="labelButton" onClick={handleDelete}>Delete</button>
-                                <button className="labelButton" onClick={moveToCart}>Move to Cart</button> 
+                                <button className="labelButton" onClick={moveToWishlist}>Move to Wish List</button> {/* Added button */}
                             </div>
                         </div>
                         <div>
@@ -366,4 +349,4 @@ const WishListPage = () => {
     );
 };
 
-export default WishListPage;
+export default CartPage;

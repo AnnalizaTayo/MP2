@@ -136,7 +136,7 @@ const SignUpPage = () => {
       })
       .catch((error) => {
         console.error('Error:', error);
-        setErrorMessage('Email already exists.');
+        setErrorMessage(error);
       });
   };
   

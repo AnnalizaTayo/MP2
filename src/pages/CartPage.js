@@ -196,7 +196,7 @@ const CartPage = () => {
                   <div className="footing">
                     <div className="allSelectedButtons">
                       <input type="checkbox" id="bottomSelectAll" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()} />
-                      <div className="labelButton2">
+                      <div>
                           <button className="labelButton" onClick={() => handleSelectAll()}>
                               Select All
                           </button>

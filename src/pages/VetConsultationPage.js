@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DayPicker } from 'react-day-picker';
-import {BsTrashFill} from 'react-icons/bs'
+import {BsTrashFill , BsFillCameraVideoFill} from 'react-icons/bs'
 import 'react-day-picker/dist/style.css';
 import "./VetConsultationPage.css";
 //import "./Consultation.css";
@@ -9,6 +9,20 @@ import Chatbot from "../components/ChatBot";
 const VetConsultationPage = () => {
   const userString = localStorage.getItem("user");
   const [user, setUser] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [consultationDate, setConsultationDate] = useState(null);
+  const [consultationTime, setConsultationTime] = useState("");
+  const [concern, setConcern] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [availableTimes, setAvailableTimes] = useState([]);
+  const [consultationLog, setConsultationLog] = useState([]);
+  const [consultationSchedule, setConsultationSchedule] = useState([]);
+  // eslint-disable-next-line
+  const [sortedConsultationSchedule, setSortedConsultationSchedule] = useState([]);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   useEffect(() => {
     if (userString) {
@@ -19,13 +33,14 @@ const VetConsultationPage = () => {
     }
   }, [userString]);
 
-  const [consultationDate, setConsultationDate] = useState(null);
-  const [consultationTime, setConsultationTime] = useState("");
-  const [concern, setConcern] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [availableTimes, setAvailableTimes] = useState([]);
-  const [consultationLog, setConsultationLog] = useState([]);
-  const [consultationSchedule, setConsultationSchedule] = useState([]);
+  useEffect(() => {
+    // Sort the consultation schedule by date
+    const sortedSchedule = consultationSchedule.sort(
+      (a, b) => new Date(a.date) - new Date(b.date)
+    );
+    setSortedConsultationSchedule(sortedSchedule);
+  }, [consultationSchedule]);
+  
 
   useEffect(() => {
     // Fetch the user data from the API
@@ -34,12 +49,7 @@ const VetConsultationPage = () => {
       .then((data) => {
         const foundUser = data.find((u) => u.email === user?.email);
         if (foundUser) {
-          const sortedLog = foundUser.vetconsultationlog
-            ? foundUser.vetconsultationlog.sort((a, b) =>
-                new Date(b.logDate) - new Date(a.logDate)
-              )
-            : [];
-          setConsultationLog(sortedLog);
+          setConsultationLog(foundUser.vetconsultationlog || []);
           setConsultationSchedule(foundUser.vetconsultationschedule || []);
         }
       })
@@ -49,17 +59,8 @@ const VetConsultationPage = () => {
   }, [user?.email]);
 
   const handleDayClick = (date) => {
-    // Check if the clicked day is a weekend (Saturday or Sunday)
-    const dayOfWeek = date.getDay();
-    if (dayOfWeek === 6 || dayOfWeek === 0) {
-      return; // Do nothing for weekends
-    }
     setConsultationDate(date);
-    if (dayOfWeek >= 1 && dayOfWeek <= 5) {
-      setAvailableTimes(["08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM"]);
-    } else {
-      setAvailableTimes([]);
-    }
+    setAvailableTimes(["08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM"]);
   };
 
   const handleTimeChange = (event) => {
@@ -72,28 +73,10 @@ const VetConsultationPage = () => {
 
   const handleScheduleConsultation = (event) => {
     event.preventDefault();
+    setErrorMessage("");
     // Check if the consultation date and time are selected
     if (!consultationDate || !consultationTime) {
       setErrorMessage("Please select a date and time for the consultation.");
-      return;
-    }
-
-    // Check if availableTimes is defined and not empty
-    if (!Array.isArray(availableTimes) || availableTimes.length === 0) {
-      setErrorMessage("No available times for the selected date.");
-      return;
-    }
-
-    // Check if the selected date and time are available
-    const isAvailable = consultationSchedule.every(appointment => {
-      return (
-        appointment.date !== consultationDate.toISOString() ||
-        appointment.time !== consultationTime
-      );
-    });
-
-    if (!isAvailable) {
-      setErrorMessage("The selected date and time are not available. Please choose another.");
       return;
     }
 
@@ -108,8 +91,21 @@ const VetConsultationPage = () => {
       return;
     }
 
-    // Generate a unique reference number
-    const idNumber = consultationLog.length > 0 ? consultationLog[0].id + 1 : 1;
+    const currentDate = new Date();
+    const randomNum = Math.floor(Math.random() * 1000); // Generate a random number between 0 and 999
+
+    // Construct the reference number using the timestamp and random number
+    const idNumber = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}${currentDate.getMilliseconds()}${randomNum}`;
+
+    // Check if the selected date is already scheduled
+    const isDateScheduled = consultationSchedule.some(
+      (appointment) => appointment.date === consultationDate.toISOString()
+    );
+
+    if (isDateScheduled) {
+      setErrorMessage("The selected date is already scheduled for an appointment.");
+      return;
+    }
 
     // Prepare the appointment data to be posted
     const appointmentData = {
@@ -131,7 +127,6 @@ const VetConsultationPage = () => {
       },
       body: JSON.stringify({
         vetconsultationlog: [
-          ...consultationLog,
           {
             referenceNumber: appointmentData.referenceNumber,
             logType: "set",
@@ -139,9 +134,9 @@ const VetConsultationPage = () => {
             appointmentDate: appointmentData.date,
             appointmentTime: appointmentData.time,
           },
+          ...consultationLog,
         ],
         vetconsultationschedule: [
-          ...consultationSchedule,
           {
             referenceNumber: appointmentData.referenceNumber,
             petName: appointmentData.petName,
@@ -149,6 +144,7 @@ const VetConsultationPage = () => {
             date: appointmentData.date,
             time: appointmentData.time,
           },
+          ...consultationSchedule,
         ],
       }),
     })
@@ -173,20 +169,26 @@ const VetConsultationPage = () => {
   };
 
   const handleCancelAppointment = (referenceNumber) => {
+    setErrorMessage("");
     // Find the appointment to be canceled
     const appointment = consultationSchedule.find(appt => appt.referenceNumber === referenceNumber);
     if (!appointment) {
-      console.error("Appointment not found.");
+     
       return;
     }
 
     // Update the consultation schedule by removing the canceled appointment
     const updatedSchedule = consultationSchedule.filter(appt => appt.referenceNumber !== referenceNumber);
     setConsultationSchedule(updatedSchedule);
+    const currentDate = new Date();
+    const randomNum = Math.floor(Math.random() * 1000); // Generate a random number between 0 and 999
+
+    // Construct the reference number using the timestamp and random number
+    const idNumber = `${currentDate.getFullYear()}${currentDate.getMonth() + 1}${currentDate.getDate()}${currentDate.getHours()}${currentDate.getMinutes()}${currentDate.getSeconds()}${currentDate.getMilliseconds()}${randomNum}`;
 
     // Create a cancellation log
     const cancellationLog = {
-      referenceNumber: appointment.referenceNumber,
+      referenceNumber: idNumber,
       logType: "cancel",
       logDate: new Date().toISOString(),
       appointmentDate: appointment.date,
@@ -194,7 +196,7 @@ const VetConsultationPage = () => {
     };
 
     // Update the consultation log with the cancellation log
-    const updatedLog = [...consultationLog, cancellationLog];
+    const updatedLog = [cancellationLog, ...consultationLog];
     setConsultationLog(updatedLog);
 
     // Make a PUT request to update the API with the updated consultation log and schedule
@@ -217,6 +219,7 @@ const VetConsultationPage = () => {
         alert("An error occurred while canceling the appointment. Please try again later.");
       });
   };
+  
 
   return (
     <div className="vet-consultation-page">
@@ -283,7 +286,26 @@ const VetConsultationPage = () => {
 
       {/* Display the consultation scheduler */}
       <div className="consultation-scheduler">
-        <h3>Schedule a Vet Consultation</h3>
+        <h3>Schedule an Online Vet Consultation</h3>
+        <div className="webcon">
+          <BsFillCameraVideoFill/>
+          <p>Web conferencing details will be provided upon confirmation.</p>
+        </div>
+        <div>
+          <button className="button" onClick={togglePopup}>Show Details</button>
+          {showPopup && (
+            <div className="popup">
+              <div className="deatils-container">
+                <p>Upon confirmation, you will receive the necessary information for the web conferencing session.<br/><br/></p>
+                <p>Get a teleconsultation or book a clinic visit with our licensed veterinarians!<br/><br/></p>
+                <p>FOR ONLY 500 PHP get an Online Vet Consultation. GET YOUR SECOND CONSULTATION FOR FREE if you book today!<br/><br/></p>
+                <p>Once booking is confirmed, we will confirm with you via email so we can match you with a vet!<br/><br/></p>
+                <p>*By booking a consultation, you agree to our Terms and Conditions and Privacy Policy.<br/></p>
+              </div>
+              <button className="button" onClick={togglePopup}>Close</button>
+            </div>
+          )}
+        </div>
         <form onSubmit={handleScheduleConsultation}>
           <div className="form-group">
             <label htmlFor="consultationDate"><h4>Consultation Date:</h4></label>
@@ -315,7 +337,7 @@ const VetConsultationPage = () => {
               disabled={!consultationDate || !consultationTime}
             ></textarea>
           </div>
-          {errorMessage && <div className="error">{errorMessage}</div>}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
           <button type="submit" className="sched button" disabled={!consultationDate || !consultationTime}>
             Schedule Consultation
           </button>
