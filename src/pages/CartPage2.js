@@ -10,7 +10,7 @@ const CartPage = () => {
     const [products, setProducts] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [wishlist, setWishlist] = useState([]);
-    const [transaction, setTransaction] = useState([]);
+    const [transactionItems, setTransactionItems] = useState([]);
     
     useEffect(() => {
         const userString = localStorage.getItem('user');
@@ -18,7 +18,6 @@ const CartPage = () => {
             const user = JSON.parse(userString);
             setCartItems(user.cart);
             setWishlist(user.wishlist);
-            setTransaction(user.transaction);
             setLoading(false);
         }
         fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products')
@@ -101,17 +100,12 @@ const CartPage = () => {
     };
 
     const handleSelectAll = () => {
-        var input = document.getElementById('submitButton');
-
         if (selectedItems.length === cartItems.length) {
             setSelectedItems([]);
-            input.disabled = true;
         } else {
             const allItemIds = cartItems.map(item => item.id);
             setSelectedItems(allItemIds);
-            input.disabled = false;
         }
-        
     };
 
     const handleDelete = () => {
@@ -208,31 +202,25 @@ const CartPage = () => {
     };
 
     const handleCheckout = () => {
-        const selectedCartItems = cartItems.filter(item => selectedItems.includes(item.id));
         const updatedCartItems = cartItems.filter(item => !selectedItems.includes(item.id));
+        const selectedCartItems = cartItems.filter(item => selectedItems.includes(item.id));
       
+        // Generate reference number
         const numericDate = new Date().getTime();
         const randomNumber = Math.floor(Math.random() * 1000);
-        const transactionId = `${numericDate}${randomNumber}`;
       
-        const transactionItems = selectedCartItems.map(item => ({
+        // Create new transaction items with reference number and product IDs
+        const newTransactionItems = selectedCartItems.map(item => ({
+          referenceNumber: `${numericDate}${randomNumber}`,
           id: item.id,
           qty: item.qty
         }));
       
-        const updatedTransaction = {
-          transactionId: transactionId,
-          items: transactionItems,
-          itemQty: selectedItems.length,
-          totalAmount: `${getTotalAmount()}`
-        };
-      
-        const updatedTransactionItems = [...transaction, updatedTransaction];
-      
-        console.log(updatedTransactionItems);
+        // Update the existing transaction array with new transaction items
+        const updatedTransactionItems = [...transactionItems, ...newTransactionItems];
       
         setCartItems(updatedCartItems);
-        setTransaction(updatedTransactionItems);
+        setTransactionItems(updatedTransactionItems);
         setSelectedItems([]);
       
         updateCartItemsInStorage(updatedCartItems);
@@ -241,35 +229,34 @@ const CartPage = () => {
         updateTransactionItemsInApi(updatedTransactionItems);
     };
       
-
     const updateTransactionItemsInStorage = (updatedTransactionItems) => {
         const userString = localStorage.getItem('user');
         if (userString) {
-            const user = JSON.parse(userString);
-            user.transaction = updatedTransactionItems;
-            localStorage.setItem('user', JSON.stringify(user));
+        const user = JSON.parse(userString);
+        user.transaction = updatedTransactionItems;
+        localStorage.setItem('user', JSON.stringify(user));
         }
     };
-
-    const updateTransactionItemsInApi= (updatedTransactionItems) => {
+    
+    const updateTransactionItemsInApi = (updatedTransactionItems) => {
         const userString = localStorage.getItem('user');
         if (userString) {
-            const user = JSON.parse(userString);
-            const userId = user.id;
-            fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users/${userId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ transaction: updatedTransactionItems }),
+        const user = JSON.parse(userString);
+        const userId = user.id;
+        fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users/${userId}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ transaction: updatedTransactionItems }),
+        })
+            .then(response => response.json())
+            .then(data => {
+            console.log('Transaction items updated in API:', data);
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Transaction items updated in API:', data);
-                })
-                .catch(error => {
-                    console.log('Error updating transaction items in API:', error);
-                });
+            .catch(error => {
+            console.log('Error updating transaction items in API:', error);
+            });
         }
     };
 
@@ -283,22 +270,6 @@ const CartPage = () => {
         // Update the cart items in the API
         updateCartItemsInApi(updatedCartItems);
     };
-
-    const checkboxes = document.getElementsByClassName('myCheckbox');
-    const submitButton = document.getElementById('submitButton');
-
-    Array.from(checkboxes).forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-        let atLeastOneChecked = false;
-        Array.from(checkboxes).forEach(function(checkbox) {
-        if (checkbox.checked) {
-            atLeastOneChecked = true;
-        }
-        });
-        submitButton.disabled = !atLeastOneChecked;
-    });
-    });
-
       
     
     if (loading) {
@@ -313,7 +284,7 @@ const CartPage = () => {
             ) : (
                 <div>
                     <div className="columnLabel">
-                        <input type="checkbox" className='myCheckbox' id="columnLabelCheckbox" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()}/>
+                        <input type="checkbox" id="columnLabelCheckbox" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()}/>
                         <h4>Product</h4>
                         <h4>Unit Price</h4>
                         <h4>Quantity</h4>
@@ -325,7 +296,7 @@ const CartPage = () => {
                             const product = getProductById(item.id);
                             return (
                                 <li key={item.id}>
-                                    <input type="checkbox" className='myCheckbox' checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
+                                    <input type="checkbox" checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
                                     <div className='productinfo'>
                                         <img src={product ? product.productimage : ''} alt={product ? product.productname : 'Unknown'} />
                                         <div>{product ? product.productname : 'Unknown'}</div>
@@ -355,9 +326,9 @@ const CartPage = () => {
                     </ul>
                     <div className="footing">
                         <div>
-                            <input type="checkbox" className='myCheckbox' id="bottomSelectAll" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()} />
+                            <input type="checkbox" id="bottomSelectAll" checked={selectedItems.length === cartItems.length} onChange={() => handleSelectAll()} />
                             <div>
-                                <button className="labelButton myCheckbox"  onClick={() => handleSelectAll()}>
+                                <button className="labelButton" onClick={() => handleSelectAll()}>
                                     Select All
                                 </button>
                                 <button className="labelButton" onClick={handleDelete}>Delete</button>

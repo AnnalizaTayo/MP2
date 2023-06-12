@@ -22,12 +22,12 @@ aside .profile-container {
     text-align: center;
 }
 
-button.edit-button.button , button.logout-button.button {
+button.edit-button.button , button.logout-button.button , .transaction-button.button{
     width: 100%;
     margin: 0.5rem auto;
 }
 
-button.edit-button.button:hover , button.logout-button.button:hover {
+button.edit-button.button:hover , button.logout-button.button:hover , .transaction-button.button:hover {
     background-color: #ffffff;
     color: #836953;
     cursor: pointer;

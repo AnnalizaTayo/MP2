@@ -1,0 +1,47 @@
+.columnLabel, .productLists li {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr;
+    color: #836953;
+    padding: 10px;
+    text-align: center;
+    margin: 0;
+}
+
+.columnLabel {
+    background-color: #F8C8DC;
+}
+
+.columnLabel>input{
+    width: 1rem;
+    margin: auto;
+}
+
+.columnLabel h4:first-of-type {
+    text-align: left;
+}
+
+.productLists li {
+    background-color: #FFFFFF;
+    border: 1px solid #F8C8DC;
+}
+
+ul.productLists {
+    padding: 0;
+}
+
+.productLists li input {
+    width: 1.5rem;
+    margin: auto;
+}
+
+li div img {
+    width: 4rem;
+    height: 4rem;
+}
+
+.productinfo {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    text-align: left;
+    gap: 1rem;
+}

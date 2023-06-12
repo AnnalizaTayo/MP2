@@ -12,7 +12,6 @@ const ProfilePage = () => {
   };
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
   const [showForm, setShowForm] = useState(false);
-  const [showMyOrder, setShowMyOrder] = useState(false);
 
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -44,9 +43,6 @@ const ProfilePage = () => {
 
   const toggleForm = () => {
     setShowForm(!showForm);
-  };
-  const toggleMyOrder = () => {
-    setShowMyOrder(!showMyOrder);
   };
 
   return (
@@ -141,15 +137,8 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className='myOrders'>
-            <button className="edit-button button" onClick={toggleMyOrder}>
-              My Orders
-            </button>
-            <div>
-            {showMyOrder && (
-            <MyOrder/>)}
-            </div>
+            <MyOrder/>
           </div>
-          
           <button className='logout-button button' onClick={handleLogout}>Logout</button>
         </div>     
       </aside>

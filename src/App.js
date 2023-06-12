@@ -14,6 +14,7 @@ import ProductsPage from './pages/ProductsPage';
 import ProfilePage from './pages/ProfilePage';
 import VetConsultationPage from './pages/VetConsultationPage';
 import WishListPage from './pages/WishListPage';
+import Logout from './pages/signout';
 import CartPage from './pages/CartPage';
 import ProductManagement from './adminPages/ProductManagement';
 
@@ -90,6 +91,7 @@ function App() {
             )}
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/products/pettype/:pettype/category/:category/search/:search" element={<ProductsPage />}/>
             <Route path="/products/pettype/:pettype/category/:category" element={<ProductsPage />}/>

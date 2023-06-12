@@ -89,20 +89,6 @@ const ProductList = () => {
             isAquariumFiltered){
             setIsAllProductsFiltered(false);
         }
-        if( !isFoodAndNutritionFiltered &&
-            !isToysAndEnrichmentFiltered &&
-            !isCareAndWellBeingFiltered &&
-            !isFoodFiltered &&
-            !isTreatsFiltered &&
-            !isSupplementsFiltered &&
-            !isToysFiltered &&
-            !isGroomingToolsFiltered &&
-            !isBeddingFiltered &&
-            !isLeashesAndCollarFiltered &&
-            !isAccessoriesFiltered &&
-            !isAquariumFiltered){
-            setIsAllProductsFiltered(true);
-        }
         handleFilterChange('productcategory', '');
     }, [isFoodAndNutritionFiltered,
         isToysAndEnrichmentFiltered,
@@ -155,17 +141,6 @@ const ProductList = () => {
             isAquariumFiltered){
             setIsAllSubcategoriesFiltered(false);
         }
-        if( !isFoodFiltered &&
-            !isTreatsFiltered &&
-            !isSupplementsFiltered &&
-            !isToysFiltered &&
-            !isGroomingToolsFiltered &&
-            !isBeddingFiltered &&
-            !isLeashesAndCollarFiltered &&
-            !isAccessoriesFiltered &&
-            !isAquariumFiltered){
-            setIsAllSubcategoriesFiltered(true);
-        }
         handleFilterChange('subcategory', '');
     }, [isFoodFiltered,
         isTreatsFiltered,
@@ -206,14 +181,6 @@ const ProductList = () => {
             isSmallAnimalsFiltered){
             setIsAllPetTypesFiltered(false);
         }
-        if( (!isDogFiltered&&
-            !isCatFiltered&&
-            !isBirdFiltered&&
-            !isFishFiltered&&
-            !isReptileFiltered&&
-            !isSmallAnimalsFiltered)){
-            setIsAllPetTypesFiltered(true);
-        }
         handleFilterChange('pettype', '');
     }, [isDogFiltered,
         isCatFiltered,
@@ -222,103 +189,13 @@ const ProductList = () => {
         isReptileFiltered,
         isSmallAnimalsFiltered]);
 
-    const oneTimeFunc = () =>{
-        const userInput = search;
-        if (userInput) { //set SearchInput only Once
-            setSearchInput(userInput);
-        }
-        routeUpdate();
-        handleFilterChange('', '');
-    };
-
-    const routeUpdate = () => {
-
-        if (pettype != null && pettype.trim() != "") {
-            const fval = pettype;
-            console.log(fval);
-            let str = "Dog";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsDogFiltered(true);
-            }else{
-                setIsDogFiltered(false);
-            }
-            str = "Cat";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsCatFiltered(true);
-            }else{
-                setIsCatFiltered(false);
-            }
-            str = "Bird";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsBirdFiltered(true);
-            }else{
-                setIsBirdFiltered(false);
-            }
-            str = "Fish";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsFishFiltered(true);
-            }else{
-                setIsFishFiltered(false);
-            }
-            str = "Reptile";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsReptileFiltered(true);
-            }else{
-                setIsReptileFiltered(false);
-            }
-            str = "small animals";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsSmallAnimalsFiltered(true);
-            }else{
-                setIsSmallAnimalsFiltered(false);
-            }
-        }else{
-            setIsAllPetTypesFiltered(true);
-        }
-        if (category != null && category.trim() != "") {
-            const fval = category;
-            console.log(fval);
-            let str = "Food and Nutrition";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsFoodAndNutritionFiltered(true);
-            }else{
-                setIsFoodAndNutritionFiltered(false);
-            }
-            str = "Toys and Enrichment";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsToysAndEnrichmentFiltered(true);
-            }else{
-                setIsToysAndEnrichmentFiltered(false);
-            }
-            str = "Care and Well-being";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsCareAndWellBeingFiltered(true);
-            }else{
-                setIsCareAndWellBeingFiltered(false);
-            }
-            str = "All Products";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsAllProductsFiltered(true);
-            }else{
-                setIsAllProductsFiltered(false);
-            }
-            str = "All";
-            if(fval.toLowerCase().includes(str.toLowerCase())){
-                setIsAllPetTypesFiltered(true);
-            }else{
-                setIsAllPetTypesFiltered(false);
-            }
-        }else{
-            setIsAllProductsFiltered(true);
-        }
-        //handleFilterChange('pettype', '');
-        //handleFilterChange('productcategory', '');
-        //handleFilterChange('', '');
-    }
-
     useEffect(() => {
         //console.log("hello fetch");
         fetchProducts('');
+		const userInput = queryParams.get('search');
+		if (userInput) { //set SearchInput only Once
+			setSearchInput(userInput);
+		}
     }, []);
 
     useEffect(() => {
@@ -331,26 +208,22 @@ const ProductList = () => {
             /*if (!pettype && !category && !search) { // not needed
                 setFiltered(results);
             }*/
-            routeUpdate();
-            /*if (pettype != null && pettype.trim() != "") {
+            if (pettype != null && searchInput.trim() != "") {
                 filteredProducts = productsFilter(filteredProducts, pettype);
             }
-            if (category != null && category.trim() != "") {
+            if (category != null && searchInput.trim() != "") {
                 filteredProducts = productsFilter(filteredProducts, null, category);
-            }*/
+            }
 			if(searchInput != null && searchInput.trim() != ""){
                 filteredProducts = productsFilter(filteredProducts, null, null, searchInput);
 			}else
-            if (search != null && search.trim() != "") {
+            if (search != null && searchInput.trim() != "") {
                 filteredProducts = productsFilter(filteredProducts, null, null, search);
             }
             
             console.log(filtered);
         }
-        
     }, [results, pettype, category, search, searchInput]);
-
-    
 
     useEffect(() => {
         if (results){
@@ -373,9 +246,8 @@ const ProductList = () => {
             }
         
             //setFiltered(filteredProducts);
-            handleFilterChange('', '');
         }
-    }, [filters.productcategory,filters.subcategory,filters.pettype]);
+    }, [filters]);
     
 
 
@@ -385,8 +257,7 @@ const ProductList = () => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            setResults(data);
-            oneTimeFunc();
+            setResults(data)
         })
         .catch(error => console.log('Error fetching products:', error));
     };
@@ -408,46 +279,42 @@ const ProductList = () => {
     const handleAddToCart = (productId) => {
         const userString = localStorage.getItem("user");
         if (userString) {
-            const user = JSON.parse(userString);
-            const existingProductIndex = user.cart.findIndex(item => item.id === productId);
-            if (existingProductIndex !== -1) {
-                // If the product already exists in the cart, update the quantity
-                const updatedCart = [...user.cart];
-                updatedCart[existingProductIndex].qty += 1;
-                const updatedUser = { ...user, cart: updatedCart };
-                updateUser(updatedUser);
-            } else {
-                // If the product is not in the cart, add it as a new object
-                const newProduct = { id: productId, qty: 1 };
-                const updatedUser = { ...user, cart: [...user.cart, newProduct] };
-                updateUser(updatedUser);
-            }
-            alert("Product has been added to the cart");
+        const user = JSON.parse(userString);
+        const existingProductIndex = user.cart.findIndex(item => item.id === productId);
+        if (existingProductIndex !== -1) {
+            // If the product already exists in the cart, update the quantity
+            const updatedCart = [...user.cart];
+            updatedCart[existingProductIndex].qty += 1;
+            const updatedUser = { ...user, cart: updatedCart };
+            updateUser(updatedUser);
         } else {
-            alert("Please login to your account to add a product in the cart");
+            // If the product is not in the cart, add it as a new object
+            const newProduct = { id: productId, qty: 1 };
+            const updatedUser = { ...user, cart: [...user.cart, newProduct] };
+            updateUser(updatedUser);
+        }
+        alert("Product has been added to the cart");
         }
     };
 
     const handleAddToWishlist = (productId) => {
         const userString = localStorage.getItem("user");
-            if (userString) {
-            const user = JSON.parse(userString);
-            const existingProductIndex = user.wishlist.findIndex(item => item.id === productId);
-            if (existingProductIndex !== -1) {
-                // If the product already exists in the wishlist, update the quantity
-                const updatedWishlist = [...user.wishlist];
-                updatedWishlist[existingProductIndex].qty += 1;
-                const updatedUser = { ...user, wishlist: updatedWishlist };
-                updateUser(updatedUser);
-            } else {
-                // If the product is not in the wishlist, add it as a new object
-                const newProduct = { id: productId, qty: 1 };
-                const updatedUser = { ...user, wishlist: [...user.wishlist, newProduct] };
-                updateUser(updatedUser);
-            }
-            alert("Product has been added to the wishlist");
+        if (userString) {
+        const user = JSON.parse(userString);
+        const existingProductIndex = user.wishlist.findIndex(item => item.id === productId);
+        if (existingProductIndex !== -1) {
+            // If the product already exists in the wishlist, update the quantity
+            const updatedWishlist = [...user.wishlist];
+            updatedWishlist[existingProductIndex].qty += 1;
+            const updatedUser = { ...user, wishlist: updatedWishlist };
+            updateUser(updatedUser);
         } else {
-            alert("Please login to your account to add a product in the cart");
+            // If the product is not in the wishlist, add it as a new object
+            const newProduct = { id: productId, qty: 1 };
+            const updatedUser = { ...user, wishlist: [...user.wishlist, newProduct] };
+            updateUser(updatedUser);
+        }
+        alert("Product has been added to the wishlist");
         }
     };
 
@@ -476,32 +343,15 @@ const ProductList = () => {
         if(toFilter==null) return null;
         //console.log("toFilter");
         //console.log(toFilter);
-        /*if(category!=null && !category.toLowerCase().includes("all products")){
+        if(category!=null && !category.toLowerCase().includes("all products")){
             setFiltered(results);
             return results;
-        }*/
-        //console.log(toFilter);(subcategory!=null &&(subcategory.toLowerCase().includes("small")))||
-        if(pettype!=null && (!pettype.toLowerCase().includes("all")||pettype.toLowerCase().includes("small"))&&!pettype.trim().replace("|","")==""){
-            toFilter = toFilter.filter(prod => {
-                const ptArr = pettype.toLowerCase().split("|");
-                // Apply filters here
-                if (!ptArr.includes(prod.pettype.toLowerCase())) {
-                    //console.log("eliminated "+prod.pettype);
-                    return false; // Skip item if category doesn't match
-                }
-                // ... other filters
-                //console.log("included "+prod.pettype);
-            
-                return true; // Include item in filtered list
-            });
         }
 
-        //if(category!=null && !category.trim()==="")
-        if(category!=null && !(category.toLowerCase().includes("all")||category.trim().replace("|","")=="")){
+        if(pettype!=null && !pettype.toLowerCase().includes("all")){
             toFilter = toFilter.filter(prod => {
-                const ctArr = category.toLowerCase().split("|");
                 // Apply filters here
-                if (!ctArr.includes(prod.productcategory.toLowerCase())) {
+                if (!pettype.toLowerCase().includes(prod.pettype.toLowerCase())) {
                     //console.log(prod);
                     return false; // Skip item if category doesn't match
                 }
@@ -510,12 +360,24 @@ const ProductList = () => {
                 return true; // Include item in filtered list
             });
         }
-//(subcategory.toLowerCase().includes("small")
-        if(subcategory!=null && !(subcategory.toLowerCase().includes("all")||subcategory.trim().replace("|","")=="")){
+
+        if(category!=null && !category.toLowerCase().includes("all")){
             toFilter = toFilter.filter(prod => {
-                const scArr = subcategory.toLowerCase().split("|");
+                // Apply filters here
+                if (!category.toLowerCase().includes(prod.productcategory.toLowerCase())) {
+                    //console.log(prod);
+                    return false; // Skip item if category doesn't match
+                }
+                // ... other filters
+            
+                return true; // Include item in filtered list
+            });
+        }
+
+        if(subcategory!=null && !subcategory.toLowerCase().includes("all")){
+            toFilter = toFilter.filter(prod => {
                     // Apply filters here
-                    if (!scArr.includes(prod.subcategory.toLowerCase())) {
+                    if (!subcategory.toLowerCase().includes(prod.subcategory.toLowerCase())) {
                         //console.log(prod);
                         return false; // Skip item if category doesn't match
                     }
@@ -560,17 +422,13 @@ const ProductList = () => {
     // });
     
     const handleFilterChange = (filterName, value, filtersNow = filters) => {
+        let fval = filtersNow[filterName];// = "|"+value;
         // if(filtersNow[filterName].toLowerCase().includes(value.toLowerCase())){//remove
         //     fval = filtersNow[filterName].replace("|"+value,"");
         // }else{//include
         //     fval = filtersNow[filterName]+"|"+value;
         // }
-        
-        let rawr = { ...filtersNow }; //rawr = { ...rawr, [filterName]: fval };
-        if(true/* filterName.includes("productcategory") */){
-            filterName = "productcategory";
-            let fval = filtersNow[filterName];// = "|"+value;
-            fval=("|"+fval);//format correction for noobs
+        if(filterName.includes("productcategory")){
             let str = "All Products";
             if(isAllProductsFiltered){
                 if(!fval.toLowerCase().includes(str.toLowerCase())){
@@ -603,12 +461,8 @@ const ProductList = () => {
             }else{
                 fval = fval.replace("|"+str,"");
             }
-            rawr = { ...rawr, [filterName]: fval.replace("||","|") };
-        }
-        if(true/* filterName.includes("subcategory") */){
-            filterName = "subcategory";
-            let fval = filtersNow[filterName];// = "|"+value;
-            fval=("|"+fval);//format correction for noobs
+        }else
+        if(filterName.includes("subcategory")){
             let str = "All";
             if(isAllSubcategoriesFiltered){
                 if(!fval.toLowerCase().includes(str.toLowerCase())){
@@ -689,12 +543,8 @@ const ProductList = () => {
             }else{
                 fval = fval.replace("|"+str,"");
             }
-            rawr = { ...rawr, [filterName]: fval.replace("||","|") };
-        }
-        if(true/* filterName.includes("pettype") */){
-            filterName = "pettype";
-            let fval = filtersNow[filterName];// = "|"+value;
-            fval=("|"+fval);//format correction for noobs
+        }else
+        if(filterName.includes("pettype")){
             let str = "All";
             if(isAllPetTypesFiltered){
                 if(!fval.toLowerCase().includes(str.toLowerCase())){
@@ -743,7 +593,7 @@ const ProductList = () => {
             }else{
                 fval = fval.replace("|"+str,"");
             }
-            str = "small animals";
+            str = "Small Animals";
             if(isSmallAnimalsFiltered){
                 if(!fval.toLowerCase().includes(str.toLowerCase())){
                     fval = fval + "|"+str;
@@ -751,9 +601,9 @@ const ProductList = () => {
             }else{
                 fval = fval.replace("|"+str,"");
             }
-            rawr = { ...rawr, [filterName]: fval.replace("||","|") };
         }
 
+        const rawr = { ...filtersNow, [filterName]: fval };
         console.log("rawr");
         console.log(rawr);
         setFilters(rawr);
@@ -955,7 +805,7 @@ const ProductList = () => {
                             <label>
                                 <input type="checkbox" checked={isSmallAnimalsFiltered} onChange={(e)=>{
                                     setIsSmallAnimalsFiltered(!isSmallAnimalsFiltered);
-                                    handleFilterChange('pettype', 'small animals');
+                                    handleFilterChange('pettype', 'Small Animals');
                                 }} />
                                 Small Animals
                             </label>
@@ -976,22 +826,17 @@ const ProductList = () => {
                     <button type="submit">Search</button>
                 </form>
                 <ul>
-                    {	results ? ((
-						(filtered ? filtered : results).map(product => (
+                    {	results ? ((filtered ? filtered : results).map(product => (
 						<li key={product.productid}>
 							<img src={product.productimage} alt={product.productname} />
 							<h3>{product.productname}</h3>
 							<p>{product.productdescription}</p>
-							<p><b>category</b>: {product.productcategory}</p>
-							<p><b>subcategory</b>: {product.subcategory}</p>
-							<p><b>type</b>: {product.pettype}</p>
 							<p>Price: ${product.price}</p>
 							<p>Stock: {product.stock}</p>
 							<button onClick={() => handleAddToCart(product.productid)}>Add to Cart</button>
 							<button onClick={() => handleAddToWishlist(product.productid)}>Add to Wishlist</button>
 						</li>
-						))
-						)) : "No Pets Available yet"
+						))) : "No Pets Available yet"
 					}
                 </ul>
             </div>

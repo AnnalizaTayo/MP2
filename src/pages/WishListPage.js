@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BsTrashFill } from 'react-icons/bs';
 import PawIcon from '../components/PawIcon';
-import { Modal, Button } from 'react-bootstrap';
+import Checkout from '../components/Checkout';
 
 const WishListPage = () => {
     const [wishListItems, setWishListItems] = useState([]);
@@ -9,7 +9,7 @@ const WishListPage = () => {
     const [products, setProducts] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [cart, setCart] = useState([]);    
-    const [showCheckoutForm, setShowCheckoutForm] = useState(false);
+    const [transaction, setTransaction] = useState([]);
     
     useEffect(() => {
         const userString = localStorage.getItem('user');
@@ -17,6 +17,7 @@ const WishListPage = () => {
             const user = JSON.parse(userString);
             setCart(user.cart);
             setWishListItems(user.wishlist);
+            setTransaction(user.transaction);
             setLoading(false);
         }
         fetch('https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/products')
@@ -99,16 +100,15 @@ const WishListPage = () => {
         return products.find(product => product.productid === productId);
     };
 
-    const handleBuyNow = () => {
-        setShowCheckoutForm(true);
-    };
-
     const handleSelectAll = () => {
+        var input = document.getElementById('submitButton');
         if (selectedItems.length === wishListItems.length) {
             setSelectedItems([]);
+            input.disabled = true;
         } else {
             const allItemIds = wishListItems.map(item => item.id);
             setSelectedItems(allItemIds);
+            input.disabled = false;
         }
     };
 
@@ -199,7 +199,96 @@ const WishListPage = () => {
                 });
         }
     };
+
+    const handleCheckout = () => {
+        const selectedWishListItems = wishListItems.filter(item => selectedItems.includes(item.id));
+        const updatedWishListItems = wishListItems.filter(item => !selectedItems.includes(item.id));
+      
+        const numericDate = new Date().getTime();
+        const randomNumber = Math.floor(Math.random() * 1000);
+        const transactionId = `${numericDate}${randomNumber}`;
+      
+        const transactionItems = selectedWishListItems.map(item => ({
+          id: item.id,
+          qty: item.qty
+        }));
+      
+        const updatedTransaction = {
+          transactionId: transactionId,
+          items: transactionItems
+        };
+      
+        const updatedTransactionItems = [...transaction, updatedTransaction];
+      
+        console.log(updatedTransactionItems);
+      
+        setWishListItems(updatedWishListItems);
+        setTransaction(updatedTransactionItems);
+        setSelectedItems([]);
+      
+        updateWishListItemsInStorage(updatedWishListItems);
+        updateTransactionItemsInStorage(updatedTransactionItems);
+        updateWishListItemsInApi(updatedWishListItems);
+        updateTransactionItemsInApi(updatedTransactionItems);
+    };
+      
+    const updateTransactionItemsInStorage = (updatedTransactionItems) => {
+        const userString = localStorage.getItem('user');
+        if (userString) {
+        const user = JSON.parse(userString);
+        user.transaction = updatedTransactionItems;
+        localStorage.setItem('user', JSON.stringify(user));
+        }
+    };
     
+    const updateTransactionItemsInApi = (updatedTransactionItems) => {
+        const userString = localStorage.getItem('user');
+        if (userString) {
+        const user = JSON.parse(userString);
+        const userId = user.id;
+        fetch(`https://6475abd1e607ba4797dc4d7a.mockapi.io/api/v1/users/${userId}`, {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ transaction: updatedTransactionItems }),
+        })
+            .then(response => response.json())
+            .then(data => {
+            console.log('Transaction items updated in API:', data);
+            })
+            .catch(error => {
+            console.log('Error updating transaction items in API:', error);
+            });
+        }
+    };
+
+    const handleDeleteSelectedItem = (itemId) => {
+        const updatedWishListItems = wishListItems.filter(item => item.id !== itemId);
+        setWishListItems(updatedWishListItems);
+      
+        // Update the wishList items in local storage
+        updateWishListItemsInStorage(updatedWishListItems);
+      
+        // Update the WishList items in the API
+        updateWishListItemsInApi(updatedWishListItems);
+    };
+      
+    const checkboxes = document.getElementsByClassName('myCheckbox');
+    const submitButton = document.getElementById('submitButton');
+
+    Array.from(checkboxes).forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        let atLeastOneChecked = false;
+        Array.from(checkboxes).forEach(function(checkbox) {
+        if (checkbox.checked) {
+            atLeastOneChecked = true;
+        }
+        });
+        submitButton.disabled = !atLeastOneChecked;
+    });
+    });
+
     if (loading) {
         return <PawIcon />;
     }
@@ -212,7 +301,7 @@ const WishListPage = () => {
             ) : (
                 <div>
                     <div className="columnLabel">
-                        <input type="checkbox" id="columnLabelCheckbox" checked={selectedItems.length === wishListItems.length} onChange={() => handleSelectAll()}/>
+                        <input type="checkbox" className="myCheckbox" id="columnLabelCheckbox" checked={selectedItems.length === wishListItems.length} onChange={() => handleSelectAll()}/>
                         <h4>Product</h4>
                         <h4>Unit Price</h4>
                         <h4>Quantity</h4>
@@ -224,8 +313,8 @@ const WishListPage = () => {
                             const product = getProductById(item.id);
                             return (
                                 <li key={item.id}>
-                                    <input type="checkbox" checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
-                                    <div>
+                                    <input type="checkbox" className="myCheckbox" checked={selectedItems.includes(item.id)} onChange={(event) => handleCheckboxChange(event, item.id)}/>
+                                    <div className='productinfo'>
                                         <img src={product ? product.productimage : ''} alt={product ? product.productname : 'Unknown'} />
                                         <div>{product ? product.productname : 'Unknown'}</div>
                                         <div>{product ? product.variant : 'Unknown'}</div>
@@ -246,7 +335,7 @@ const WishListPage = () => {
                                         {product ? `$${(parseFloat(product.price) * item.qty).toFixed(2)}` : 'Unknown'}
                                     </div>
                                     <div>
-                                        <BsTrashFill />
+                                        <BsTrashFill onClick={() => handleDeleteSelectedItem(item.id)} />
                                     </div>
                                 </li>
                             );
@@ -254,7 +343,7 @@ const WishListPage = () => {
                     </ul>
                     <div className="footing">
                         <div>
-                            <input type="checkbox" id="bottomSelectAll" checked={selectedItems.length === wishListItems.length} onChange={() => handleSelectAll()} />
+                            <input type="checkbox" className='myCheckbox' id="bottomSelectAll" checked={selectedItems.length === wishListItems.length} onChange={() => handleSelectAll()} />
                             <div>
                                 <button className="labelButton" onClick={() => handleSelectAll()}>
                                     Select All
@@ -266,46 +355,9 @@ const WishListPage = () => {
                         <div>
                             <h4>Total({selectedItems.length} item{selectedItems.length === 1 ? '' : 's'}):</h4>
                             <h4>${getTotalAmount()}</h4>
-                            <button onClick={handleBuyNow}>Checkout</button>
-                            <Modal show={showCheckoutForm} onHide={() => setShowCheckoutForm(false)}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Checkout Form</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <form class="col-address">
-                                    <div class="shipping-address">
-                                        <fieldset>
-                                        <legend><h3>Delivery Address</h3></legend>
-                                        <input type="text" id="country" name="country" placeholder="Country/Region" />
-                                        <input type="text" id="address" name="address" placeholder="Address" />
-                                        <input type="text" id="appartment" name="appartment" placeholder="Appartment, suite, etc. (Optional)" />
-                                        <input type="text" id="number" name="number" placeholder="Enter your Number" />
-                                        <input type="email" id="email" name="email" placeholder="Enter your email" />
-                                        </fieldset>
-                                    </div>
-                                    </form>
-
-                                    <form class="col-payment">
-                                    <div class="payment-details">
-                                        <fieldset>
-                                        <legend><h3>Card Payment</h3></legend>
-                                        <input type="text" id="cardholderName" name="cardholderName" placeholder="Cardholder Name" />
-                                        <input type="text" id="cardNumber" name="cardNumber" placeholder="Card Number" />
-                                        <input type="text" id="expiryDate" name="expiryDate" placeholder="Expiry Date" />
-                                        <input type="text" id="cvv" name="cvv" placeholder="CVV" />
-                                        </fieldset>
-                                    </div>
-                                    </form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={() => setShowCheckoutForm(false)}>
-                                    Close
-                                    </Button>
-                                    <Button variant="primary" onClick={() => console.log('Place order clicked')}>
-                                    Place Order
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
+                            <div className='checkout'>
+                                <Checkout handleCheckout={handleCheckout}/>
+                            </div>
                         </div>
                   </div>
                 </div>
